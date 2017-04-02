@@ -1,0 +1,86 @@
+﻿
+@{
+    ViewBag.Title = "修改管理员密码";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section head{
+    <link href="~/Content/css/login.css" rel="stylesheet" />
+}
+<div class="login_contanier">
+    <table class="login_table">
+        <tr class="login_table_title"><td><pre style="font-family:'Microsoft YaHei';font-size:20px;">修  改  密  码</pre></td></tr>
+        <tr><td class="login_table_name"><pre>   手机号： <input type="text" id="contact" onfocus="name_focus()" onblur="exist()" /> <div style="background-color: red;color: black;display: none" id="name_error">用户名错误</div></pre></td></tr>
+        <tr>
+            <td class="login_table_pass">
+                <pre>  新密码： <input type="password" id="pass1" /></pre>
+            </td>
+        </tr>
+        <tr>
+            <td class="login_table_pass">
+                <pre>确认密码： <input type="password" id="pass2" onfocus="pass_focus()" />&nbsp;&nbsp;<div style="background-color: red;color: black;display: none" id="pass_error">密码输入不一致</div></pre>
+            </td>
+        </tr>
+        <tr>
+            <td class="login_table_login">
+                <input type="button" value="修改" class="login_btn" onclick="alter()" />
+            </td>
+        </tr>
+    </table>
+</div>
+<br />
+<br />
+<br />
+<br />
+<script>
+        var nameError=document.getElementById("name_error");
+        var passError=document.getElementById("pass_error");
+        var isExit = false;  //是否存在
+        function exist() {
+            /*get club's id by ajax*/
+            $.get("/Admin/Login/GetClubIdByContact?contact=" + $("#contact").val(), function (data) {
+                data = parseInt(data);
+                if(data <= 0) {
+                    nameError.style.display = "block";
+                }
+                else {
+                    nameError.innerHTML = "管理员验证通过";
+                    nameError.style.backgroundColor = "lightgreen";
+                    nameError.style.display = "block";
+                }
+                isExit = true;
+            });
+        }
+        function alter() {
+            if(!isExit) {
+                alert("此管理员不存在");
+                return false;
+            }
+            if ($("#pass1").val() != $("#pass2").val()) {
+                passError.style.display = "block";
+                return false;
+            }
+            $.get("/Admin/Login/AlterPass?contact=" + $("#contact").val() + "&pass=" + $("#pass1").val(), function (data) {
+                if (data == "Ok") {
+                    alert("密码更改成功");
+                    location.href = '@Url.Action("Index")';
+                }
+                else {
+                    alert("操作失败");
+                }
+            });
+        }
+    //注册Enter登录事件
+    document.onkeydown = function (e) {
+        var keycode = document.all ? event.keyCode : e.which;
+        if (keycode == 13) {
+            alter();
+        }
+    }
+        function name_focus(){
+            nameError.style.display="none";
+        }
+        function pass_focus(){
+            passError.style.display = "none";
+        }
+</script>

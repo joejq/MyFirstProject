@@ -1,0 +1,14 @@
+C:\Users\joejq\Desktop\DotNET\CampusClubService\IBLL\bin\Release\IBLL.dll
+C:\Users\joejq\Desktop\DotNET\CampusClubService\IBLL\bin\Release\IBLL.pdb
+C:\Users\joejq\Desktop\DotNET\CampusClubService\IBLL\bin\Release\DAL.dll
+C:\Users\joejq\Desktop\DotNET\CampusClubService\IBLL\bin\Release\IDAL.dll
+C:\Users\joejq\Desktop\DotNET\CampusClubService\IBLL\bin\Release\Model.dll
+C:\Users\joejq\Desktop\DotNET\CampusClubService\IBLL\bin\Release\EntityFramework.dll
+C:\Users\joejq\Desktop\DotNET\CampusClubService\IBLL\bin\Release\DAL.pdb
+C:\Users\joejq\Desktop\DotNET\CampusClubService\IBLL\bin\Release\IDAL.pdb
+C:\Users\joejq\Desktop\DotNET\CampusClubService\IBLL\bin\Release\Model.pdb
+C:\Users\joejq\Desktop\DotNET\CampusClubService\IBLL\bin\Release\EntityFramework.xml
+C:\Users\joejq\Desktop\DotNET\CampusClubService\IBLL\bin\Release\zh-Hans\EntityFramework.resources.dll
+C:\Users\joejq\Desktop\DotNET\CampusClubService\IBLL\obj\Release\IBLL.csprojResolveAssemblyReference.cache
+C:\Users\joejq\Desktop\DotNET\CampusClubService\IBLL\obj\Release\IBLL.dll
+C:\Users\joejq\Desktop\DotNET\CampusClubService\IBLL\obj\Release\IBLL.pdb

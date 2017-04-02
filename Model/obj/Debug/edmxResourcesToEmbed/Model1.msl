@@ -1,0 +1,118 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="CalligenceBotModelStoreContainer" CdmEntityContainer="CBEntities">
+    <EntitySetMapping Name="Activities">
+      <EntityTypeMapping TypeName="CalligenceBotModel.Activities">
+        <MappingFragment StoreEntitySet="Activities">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Atitle" ColumnName="Atitle" />
+          <ScalarProperty Name="Acontent" ColumnName="Acontent" />
+          <ScalarProperty Name="Atime" ColumnName="Atime" />
+          <ScalarProperty Name="Aimage" ColumnName="Aimage" />
+          <ScalarProperty Name="Subtime" ColumnName="Subtime" />
+          <ScalarProperty Name="Delflag" ColumnName="Delflag" />
+          <ScalarProperty Name="CID" ColumnName="CID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BackManager">
+      <EntityTypeMapping TypeName="CalligenceBotModel.BackManager">
+        <MappingFragment StoreEntitySet="BackManager">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Busername" ColumnName="Busername" />
+          <ScalarProperty Name="Bpass" ColumnName="Bpass" />
+          <ScalarProperty Name="Bcontact" ColumnName="Bcontact" />
+          <ScalarProperty Name="Subtime" ColumnName="Subtime" />
+          <ScalarProperty Name="Delflag" ColumnName="Delflag" />
+          <ScalarProperty Name="CID" ColumnName="CID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ClubLeader">
+      <EntityTypeMapping TypeName="CalligenceBotModel.ClubLeader">
+        <MappingFragment StoreEntitySet="ClubLeader">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Lname" ColumnName="Lname" />
+          <ScalarProperty Name="Lmajor" ColumnName="Lmajor" />
+          <ScalarProperty Name="Lcontact" ColumnName="Lcontact" />
+          <ScalarProperty Name="Lregiste" ColumnName="Lregiste" />
+          <ScalarProperty Name="Lsex" ColumnName="Lsex" />
+          <ScalarProperty Name="Limage" ColumnName="Limage" />
+          <ScalarProperty Name="Subtime" ColumnName="Subtime" />
+          <ScalarProperty Name="Delflag" ColumnName="Delflag" />
+          <ScalarProperty Name="CID" ColumnName="CID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Clubs">
+      <EntityTypeMapping TypeName="CalligenceBotModel.Clubs">
+        <MappingFragment StoreEntitySet="Clubs">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Cname" ColumnName="Cname" />
+          <ScalarProperty Name="Subtime" ColumnName="Subtime" />
+          <ScalarProperty Name="Delflag" ColumnName="Delflag" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LearnMore">
+      <EntityTypeMapping TypeName="CalligenceBotModel.LearnMore">
+        <MappingFragment StoreEntitySet="LearnMore">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Lcontent" ColumnName="Lcontent" />
+          <ScalarProperty Name="Lok" ColumnName="Lok" />
+          <ScalarProperty Name="Subtime" ColumnName="Subtime" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MainInfo">
+      <EntityTypeMapping TypeName="CalligenceBotModel.MainInfo">
+        <MappingFragment StoreEntitySet="MainInfo">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Micon" ColumnName="Micon" />
+          <ScalarProperty Name="Mintroduction" ColumnName="Mintroduction" />
+          <ScalarProperty Name="Mcreatetime" ColumnName="Mcreatetime" />
+          <ScalarProperty Name="MbelongTo" ColumnName="MbelongTo" />
+          <ScalarProperty Name="Mcooperation" ColumnName="Mcooperation" />
+          <ScalarProperty Name="Subtime" ColumnName="Subtime" />
+          <ScalarProperty Name="Delflag" ColumnName="Delflag" />
+          <ScalarProperty Name="CID" ColumnName="CID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="News">
+      <EntityTypeMapping TypeName="CalligenceBotModel.News">
+        <MappingFragment StoreEntitySet="News">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Ntitle" ColumnName="Ntitle" />
+          <ScalarProperty Name="Ncontent" ColumnName="Ncontent" />
+          <ScalarProperty Name="Ntime" ColumnName="Ntime" />
+          <ScalarProperty Name="Nimage" ColumnName="Nimage" />
+          <ScalarProperty Name="Subtime" ColumnName="Subtime" />
+          <ScalarProperty Name="Delflag" ColumnName="Delflag" />
+          <ScalarProperty Name="CID" ColumnName="CID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Notice">
+      <EntityTypeMapping TypeName="CalligenceBotModel.Notice">
+        <MappingFragment StoreEntitySet="Notice">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Ncontent" ColumnName="Ncontent" />
+          <ScalarProperty Name="Subtime" ColumnName="Subtime" />
+          <ScalarProperty Name="Delflag" ColumnName="Delflag" />
+          <ScalarProperty Name="CID" ColumnName="CID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RegisteClub">
+      <EntityTypeMapping TypeName="CalligenceBotModel.RegisteClub">
+        <MappingFragment StoreEntitySet="RegisteClub">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Rname" ColumnName="Rname" />
+          <ScalarProperty Name="Rok" ColumnName="Rok" />
+          <ScalarProperty Name="Subtime" ColumnName="Subtime" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

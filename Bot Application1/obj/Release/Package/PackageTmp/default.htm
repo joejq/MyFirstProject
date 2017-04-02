@@ -1,0 +1,56 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>校园社团Bot</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <!--<script src="Content/jquery-1.10.2.min.js"></script>
+    <script>
+        $(function () {
+            $.get("SessionOperation.ashx", function (data) {
+                alert(data);
+            });
+        })
+    </script>-->
+    <!--<script type="text/javascript" src="jquery-3.1.0.min.js"></script>-->
+    <!--<style>
+        #container {
+            width: 800px;
+            height: 620px;
+            margin: auto;
+            border: solid 10px #002dff;
+            border-radius: 5px;
+        }
+
+        #title {
+            width: 100%;
+            text-align: center;
+            font-size: 32px;
+            border-bottom: solid 5px #0008ff;
+        }
+
+        #botchat {
+            width: 99%;
+            height: 510px;
+            margin: auto;
+        }
+    </style>-->
+</head>
+<body style="text-align: center; height: 100%;overflow-x: hidden; " id="123">
+    <iframe style="min-width:180px;max-width:700px;" id="botchat" src='https://webchat.botframework.com/embed/ClubsService?s=kPeqdM-_510.cwA.ajY.PqUTjznV0mRYYdzgDmxJ9HdnmiBfIOoX65fWwP0unYw' onload="changeFrameHeight()"></iframe>
+
+</body>
+</html>
+
+<script type="text/javascript" language="javascript">
+
+	function changeFrameHeight(){
+         var ifm= document.getElementById("botchat");
+         ifm.height=document.documentElement.clientHeight-25+"px";
+         ifm.width=document.documentElement.clientWidth-20+"px";
+	}
+	window.onresize=function(){
+         changeFrameHeight();
+	}
+</script>

@@ -1,0 +1,10 @@
+C:\Users\joejq\Desktop\DotNET\CampusClubService\IDAL\bin\Debug\IDAL.dll
+C:\Users\joejq\Desktop\DotNET\CampusClubService\IDAL\bin\Debug\IDAL.pdb
+C:\Users\joejq\Desktop\DotNET\CampusClubService\IDAL\bin\Debug\Model.dll
+C:\Users\joejq\Desktop\DotNET\CampusClubService\IDAL\bin\Debug\EntityFramework.dll
+C:\Users\joejq\Desktop\DotNET\CampusClubService\IDAL\bin\Debug\Model.pdb
+C:\Users\joejq\Desktop\DotNET\CampusClubService\IDAL\bin\Debug\EntityFramework.xml
+C:\Users\joejq\Desktop\DotNET\CampusClubService\IDAL\bin\Debug\zh-Hans\EntityFramework.resources.dll
+C:\Users\joejq\Desktop\DotNET\CampusClubService\IDAL\obj\Debug\IDAL.csprojResolveAssemblyReference.cache
+C:\Users\joejq\Desktop\DotNET\CampusClubService\IDAL\obj\Debug\IDAL.dll
+C:\Users\joejq\Desktop\DotNET\CampusClubService\IDAL\obj\Debug\IDAL.pdb

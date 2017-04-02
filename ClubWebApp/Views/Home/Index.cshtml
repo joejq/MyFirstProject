@@ -1,0 +1,440 @@
+﻿@using ClubWebApp;
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>校园社团</title>
+    <link href="~/Content/css/main.css" rel="stylesheet" />
+    <link href="~/Content/css/style.css" rel="stylesheet" />
+    <script src="~/scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Content/js/utility.js"></script>
+    <script>
+        var pictures = document.getElementsByClassName("asso_pic");
+        var pic_count = 0;
+        var currentIndex = 0;
+        $(function () {
+            var detail = document.getElementById("detail_board");
+            var main = document.getElementById("main_board");
+            var layer = document.getElementById("layer");
+            loadNews();
+            loadActivities();
+            loadNotice();
+            loadDisplay();
+            loadLeader();
+
+            //滚动图片
+            setInterval(
+                function () {
+                    currentIndex = currentIndex + 1;
+                    if (currentIndex > pictures.length - 1) {
+                        currentIndex = 0;
+                    }
+                    show();
+                }, 5000);
+        });
+
+        function loadNews() {
+            $.ajax({
+                type: "GET",
+                url: '@Url.Action("News")',
+                dataType: "json",
+                success: function (data) {
+                    $('#newsContent').empty();
+                    var html = '';
+                    var news = eval("(" + data + ")");
+                    if (news == "" || news==null) {
+                        html += '<tr><td><br/>暂时还未发布任何动态</td></tr>';
+                        $("#newsContent").append(html);
+                        return;
+                    }
+                    //加载内容
+                    for (var i = 0; i < news.length; i++) {
+                        var title = getMyTitle(news[i].Ntitle, 30);
+                        var date = getMyDate(news[i].Ntime);
+                        html += '<tr class="news_table_tr"><td><a href="/More/Details?type=news&id=' + news[i].ID + '" target="_blank">' + title + '</a></td><td style="float:right;line-height:39px;width:90px;color:gray;">' + date + '</td></tr>';
+                    }
+                    $('#newsContent').append(html);
+                }
+            });
+        }
+        function loadActivities() {
+            $.ajax({
+                type: "GET",
+                url: '@Url.Action("Activities")',
+                dataType: "json",
+                success: function (data) {
+                    $('#actiContent').empty();
+                    var html = '';
+                    var acti = eval("(" + data + ")");
+                    if (acti == "" || acti == null) {
+                        html += '<br/>暂时还未发布任何成果';
+                        $("#actiContent").append(html);
+                        return;
+                    }
+                    //加载内容
+                    for (var i = 0; i < acti.length; i++) {
+                        var title = getMyTitle(acti[i].Atitle, 30);
+                        html += '<div class="achievements" onclick="ForDetail('+acti[i].ID+')"><img src="' + acti[i].Aimage + '" alt="成果图" class="achievements_img" /><div class="achievements_txt"><b>' + title + '</b></div></div>';
+                    }
+                    $('#actiContent').append(html);
+                }
+            });
+        }
+        function loadNotice() {
+            $.ajax({
+                type: "GET",
+                url: '@Url.Action("Notice")',
+                dataType: "json",
+                success: function (data) {
+                    //alert(data);
+                    $('#noticeContent').empty();
+                    var html = '';
+                    var notice = eval("(" + data + ")");
+                    if (notice == "" || notice == null) {
+                        html += '<tr class="announce_content_ou"><td><br/>暂时还未发布任何公告</td></tr>';
+                        $('#noticeContent').append(html);
+                        return;
+                    }
+                    //加载内容
+                    for (var i = 0; i < notice.length; i++) {
+                        var content = getMyTitle(notice[i].Ncontent, 100);
+                        var date = getMyDate(notice[i].Subtime)
+                        if (i % 2 == 0) html += '<tr class="announce_content_ou"><td class="announce_content_td_ou"><div style="line-height:25px;width:90%;margin:auto;">&nbsp;&nbsp;&nbsp;&nbsp;' + content + '</div><div style="line-height:22px;text-align:right;color:gray;">' + date + '</div></td></tr>';
+                        else html += '<tr class="announce_content_ji"><td class="announce_content_td_ji"><div style="line-height:25px;width:90%;margin:auto;">&nbsp;&nbsp;&nbsp;&nbsp;' + content + '</div><div style="line-height:22px;text-align:right;color:gray;">' + date + '</div></td></tr>';
+                    }
+                    $('#noticeContent').append(html);
+                }
+            });
+        }
+
+        function loadDisplay() {
+            $.ajax({
+                type: "GET",
+                url: '@Url.Action("Displays")',
+                dataType: "json",
+                success: function (data) {
+                    var display = eval("(" + data + ")");
+                    $('#disContent').empty();
+                    var html = '';
+                    //加载默认图片
+                    if (display == "" || display == null) {
+                        pic_count = 3;
+                        html += '<img src="/Content/images/default/display1.png" alt="" class="asso_pic" style="display: block" />'
+                                + '<img src="/Content/images/default/display2.png" alt="" class="asso_pic" style="display: none" />'
+                                + '<img src="/Content/images/default/display3.jpg" alt="" class="asso_pic" style="display: none" />'
+                                + '<button style="float: right;color: #c90000;width: 40px;height: 20px;border: none" class="move_pic" onclick="change_pic()"> >> </button>';
+                        //alert(html);
+                        $('#disContent').append(html);
+                    } else {
+                        //加载上传的展示图片
+                        pic_count = display.length;
+                        for (var i = 0; i < display.length; i++) {
+                            if (i == 0) html += '<img src="' + display[i].FilePath + '" alt="" class="asso_pic" style="display: block" />';
+                            else html += '<img src="' + display[i].FilePath + '" alt="" class="asso_pic" style="display: none"/>';
+                        }
+                        html += '<button style="float: right;color: #c90000;width: 40px;height: 20px;border: none" class="move_pic" onclick="change_pic()"> >> </button>';
+                        $('#disContent').append(html);
+                    }
+                }
+            });
+        }
+        function loadLeader() {
+            $.ajax({
+                type: "GET",
+                url: '@Url.Action("Leader")',
+                dataType: "json",
+                success: function (data) {
+                    $('#leaderDetail').empty();
+                    //var html1 = '';
+                    var html2 = '';
+                    var leader = eval("(" + data + ")");
+                    if (leader == "" || leader == null) {
+                        html2 += '<tr class="master_detail_information_title"><td class="master_detail_information_title_first_td">会&nbsp;长&nbsp;详&nbsp;</td><td class="master_detail_information_title_second_td">细&nbsp;信&nbsp;息</td></tr>'
+            + '<tr class="master_detail_information_tr"><td colspan="2" style="text-align:center;"><img src="/Content/images/default/150_200.png" alt="" class="master_img" /></td></tr>'
+            + '<tr class="master_detail_information_tr"><td class="master_detail_information_td_first">姓名：</td><td class="master_detail_information_td_second">XXX</td></tr>'
+            + '<tr class="master_detail_information_tr"><td class="master_detail_information_td_first">性别：</td><td class="master_detail_information_td_second">保密</td></tr>'
+            + '<tr class="master_detail_information_tr"><td class="master_detail_information_td_first">入学时间：</td><td class="master_detail_information_td_second">XXX</td></tr>'
+            + '<tr class="master_detail_information_tr"><td class="master_detail_information_td_first">专业：</td><td class="master_detail_information_td_second">XXX</td></tr>'
+            + '<tr class="master_detail_information_tr"><td class="master_detail_information_td_first">联系方式：</td><td class="master_detail_information_td_second">XXX</td></tr><tr><td colspan="2" style="text-align:center;"><input type="button" value="确认" class="sure_btn" onclick="sure()" /></td></tr>';
+                        
+                        $('#leaderDetail').append(html2);
+                        return;
+                    }
+                    var sex="男";
+                    if(leader.Lsex == "0") sex = "女";
+                    var date = getMyDate(leader.Lregiste);
+
+                    //加载内容
+                    html2 += '<tr class="master_detail_information_title"><td class="master_detail_information_title_first_td">会&nbsp;长&nbsp;详&nbsp;</td><td class="master_detail_information_title_second_td">细&nbsp;信&nbsp;息</td></tr>'
+            + '<tr class="master_detail_information_tr"><td colspan="2" style="text-align:center;"><img src="' + leader.Limage + '" alt="" class="master_img" /></td></tr>'
+            + '<tr class="master_detail_information_tr"><td class="master_detail_information_td_first">姓名：</td><td class="master_detail_information_td_second">' + leader.Lname + '</td></tr>'
+            + '<tr class="master_detail_information_tr"><td class="master_detail_information_td_first">性别：</td><td class="master_detail_information_td_second">' + sex + '</td></tr>'
+            + '<tr class="master_detail_information_tr"><td class="master_detail_information_td_first">入学时间：</td><td class="master_detail_information_td_second">' + date + '</td></tr>'
+            + '<tr class="master_detail_information_tr"><td class="master_detail_information_td_first">专业：</td><td class="master_detail_information_td_second">' + leader.Lmajor + '</td></tr>'
+            + '<tr class="master_detail_information_tr"><td class="master_detail_information_td_first">联系方式：</td><td class="master_detail_information_td_second">' + leader.Lcontact + '</td></tr><tr><td colspan="2" style="text-align:center;"><input type="button" value="确认" class="sure_btn" onclick="sure()" /></td></tr>';
+                    
+                    $('#leaderDetail').append(html2);
+                }
+            });
+        }
+        function change_pic() {
+            if (currentIndex == pictures.length - 1) {
+                currentIndex = 0;
+            } else {
+                currentIndex++;
+            }
+            for (var i = 0; i < pictures.length; i++) {
+                if (i == currentIndex) {
+                    pictures[i].style.display = "block";
+                } else {
+                    pictures[i].style.display = "none";
+                }
+            }
+        }
+        function show() {
+            for (var i = 0; i < pictures.length; i++) {
+                if (i == currentIndex) {
+                    pictures[i].style.display = "block";
+                } else {
+                    pictures[i].style.display = "none";
+                }
+            }
+        }
+        function changeClub(id) {
+            if (id <= 0) return false;
+            $.ajax({
+                type: "GET",
+                url: '/Home/ChangeClub?id=' + id,
+                success: function (data) {
+                    if(data == "Ok") {
+                        //重新加载整个页面的内容
+                        loadNews();
+                        loadActivities();
+                        loadNotice();
+                        loadLeader();
+                        loadDisplay();
+                    }
+                }
+            });
+        }
+        function ForDetail(id) {
+            window.open("/More/Details?type=activities&id=" + id);
+        }
+        function showLeaderDetail() {
+            $("#detail_board").css("display", "block");
+            $("#main_board").css("opacity", "0.2");
+            $("#main_board").css("pointerEvents", "none");
+        }
+        function sure() {
+            $("#detail_board").css("display", "none");
+            $("#main_board").css("opacity", "1");
+            $("#main_board").css("pointerEvents", "auto");
+        }
+        function openSearch() {
+            var serarchName = prompt("请输入你要搜索的协会名", "");
+            //这里需要注意的是，prompt有两个参数，前面是提示的话，后面是当对话框出来后，在对话框里的默认值
+            if (serarchName)//如果返回的有内容
+            {
+                $.get("/Home/Search?searchName=" + serarchName, function (data) {
+                    if(data != "Fail") {  //搜索成功
+                        $.get("/Home/ChangeClub?id=" + data, function (msg) {
+                            if(msg == "Ok") location.reload();
+                        })
+                    } else {
+                        alert("您所搜索的协会暂时还不存在");
+                    }
+                });
+            }
+        }
+    </script>
+</head>
+<body style="overflow-y:scroll;">
+    <!--LeaderDetail-->
+    <div class="master_detail_information" id="detail_board" style="display: none">
+        <table class="master_detail_information_table" id="leaderDetail">
+            <!--会长详细信息-->
+            <tr class="master_detail_information_title"><td class="master_detail_information_title_first_td">会&nbsp;长&nbsp;详&nbsp;</td><td class="master_detail_information_title_second_td">细&nbsp;信&nbsp;息</td></tr>
+            <tr class="master_detail_information_tr">
+                <td class="master_detail_information_td_first">照片：</td>
+                <td class="master_detail_information_td_second"><img src="~/Content/images/default/150_200.png" alt="" class="master_img" /></td>
+            </tr>
+            <tr class="master_detail_information_tr">
+                <td class="master_detail_information_td_first">姓名：</td>
+                <td class="master_detail_information_td_second">XXX</td>
+            </tr>
+            <tr class="master_detail_information_tr">
+                <td class="master_detail_information_td_first">性别：</td>
+                <td class="master_detail_information_td_second">XXX</td>
+            </tr>
+            <tr class="master_detail_information_tr">
+                <td class="master_detail_information_td_first">入学时间：</td>
+                <td class="master_detail_information_td_second">XXX</td>
+            </tr>
+            <tr class="master_detail_information_tr">
+                <td class="master_detail_information_td_first">专业：</td>
+                <td class="master_detail_information_td_second">XXX</td>
+            </tr>
+            <tr class="master_detail_information_tr">
+                <td class="master_detail_information_td_first">联系方式：</td>
+                <td class="master_detail_information_td_second">XXX</td>
+            </tr>
+            <tr><td colspan="2" style="text-align:center;"><input type="button" value="确认" class="sure_btn" onclick="sure()" /></td></tr>
+        </table>
+        
+    </div>
+    <!--LeaderDetail over-->
+    
+    <div style="z-index:1;position: absolute;width:100%;min-width:1000px;" id="main_board">
+        <!--Clubs-->
+        <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+        <div id="wrapper">
+            <div style="text-align:center;clear:both">
+            </div>
+            <div class="card-drop" id="clubContent">
+                <a class="toggle" href="#">
+                    <i></i>
+                    @{ List<ShowClub> clubs = ViewData["Clubs"] as List<ShowClub>;}
+                    <span class="label-active">@clubs[0].Clubname</span>
+                </a>
+                <ul>
+                    <li class="active">
+                        <a data-label="@clubs[0].Clubname" href="javascript:changeClub(@clubs[0].Clubid);"><i></i>@clubs[0].Clubname</a>
+                    </li>
+                    @for (int i = 1; i < (ViewData["Clubs"] as List<ShowClub>).Count; i++)
+                    {
+                        <li>
+                            <a data-label="@clubs[i].Clubname" href="javascript:changeClub(@clubs[i].Clubid);"><i></i>@clubs[i].Clubname</a>
+                        </li>
+                    }                   
+                    
+                    <li>
+                        <a data-label="🔎搜索更多协会" href="javascript:openSearch();"><i></i>🔎搜索更多协会</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!--Clubs over-->
+
+        <!--BackManage-->
+        <div class="manage">
+            @*<a href="/Register/Main/Index" target="_blank">注册协会</a>&nbsp;&nbsp;*@
+            <a href="/Admin/Login/Index" target="_blank">社团管理员</a>
+        </div>
+        <!--BackManage over-->
+        <div></div> 
+        <!--Navigater-->
+        <div class="nav">
+            <table class="nav_table">
+                <tr>
+                    <td><a href='@Url.Action("MainInfo")' target="_blank">简介</a></td>
+                    <td><a href="javascript:showLeaderDetail();">会长</a></td>
+                    <td><a href="/Home/More?type=news" target="_blank">动态</a></td>
+                    <td><a href="/Home/More?type=activities" target="_blank">成果</a></td>
+                    <td><a href="/Home/More?type=notice" target="_blank">公告</a></td>
+                </tr>
+            </table>
+        </div>
+        <!--Navigater  over-->
+
+        <div class="main">
+            <table style="margin:auto;">
+                <tr>
+                    <td style="vertical-align:top;">
+                        <div class="news">
+                            <!--News-->
+                            <table class="news_table_title">
+                                <tr class="news_table_title_tr">
+                                    <td class="news_logo">动态</td>
+                                    <td class="news_more"><a href="/Home/More?type=news" class="news_more_a" target="_blank">更多</a></td>
+                                </tr>
+                            </table>
+
+                            <table class="news_table" id="newsContent">
+                                <tr class="news_table_tr"><td><a href="单个.html" target="_blank">正在加载中……</a></td>
+                                    <td>
+                                        2016-09-08
+                                    </td>
+                                </tr>
+                                
+                            </table>
+                        </div>
+                        <!--News  over-->
+
+                        <!--Activities-->
+                        <div class="achieve">
+                            <table class="achieve_table_title">
+                                <tr class="achieve_table_title_tr">
+                                    <td class="achieve_logo">成果</td>
+                                    <td class="achieve_more"><a href="/Home/More?type=activities" class="achieve_more_a" target="_blank">更多</a></td>
+                                </tr>
+                            </table>
+
+                            <div class="achieve_content" id="actiContent">
+                                
+                                <div class="achievements" onclick="ForDetail()">努力加载中……
+                                </div>
+                            </div>
+                        </div>
+                        <!--Activities over-->
+
+                        <!--Display-->
+                    </td>
+                    <td class="right">
+                        <div class="chairman">
+                            <table class="chairman_title">
+                                <tr class="chairman_title_tr">
+                                    <td class="chairman_logo">协会风采</td>
+                                    <!--<td style="float: right"><button style="width: 70px;height: 25px;border: solid 2px darkred;" id="change_pic_btn" onclick="change_pic()">下一张</button></td>-->
+                                </tr>
+                            </table>
+
+                            <div id="disContent" style="width: 310px;height: 290px;margin-top: 10px;border: solid 20px #dadbda;border-radius: 5px">
+                                <!--放置 滚动图片-->
+                                <img src="~/Content/images/default/display1.png" alt="" class="asso_pic" style="display: block" />
+                                <img src="~/Content/images/default/display2.png" alt="" class="asso_pic" style="display: none" />
+                                <img src="~/Content/images/default/display3.jpg" alt="" class="asso_pic" style="display: none" />
+                                <button style="float: right;color: #c90000;width: 40px;height: 20px;border: none" class="move_pic" onclick="change_pic()"> >> </button>
+                            </div>
+
+                            @*<td class="chairman_logo">会长</td>
+                    <td><div class="detail_information" onclick="showLeaderDetail()">详细信息</div></td>
+                </tr>
+            </table>
+
+            <table class="chairman_information" id="leaderContent">*@
+                            <!--会长简略信息-->
+                            @*</table>*@
+                        </div>
+                        <!--Display over-->
+
+                        <!--Notice-->
+                        <div class="announce">
+                            <table class="announce_title">
+                                <tr class="announce_title_tr">
+                                    <td class="announce_logo">公告</td>
+                                    <td class="announce_more"><a href="/Home/More?type=notice" class="announce_more_a" target="_blank">更多</a></td>
+                                </tr>
+                            </table>
+
+                            <table class="announce_content" id="noticeContent">
+                                <tr class="announce_content_ou"><td>正在加载中……</td></tr>
+                                
+                            </table>
+                        </div>
+                        <!--Notice over-->
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div style="text-align:center;width:100%;min-width:1000px;float:left;border-top:solid 1px orangered;margin-top:10px;line-height:80px;"><p>@DateTime.Now.Year - 版权归江苏科技大学（张家港校区）计算机协会所有</p></div>
+    </div>
+    <script src="~/Content/js/jquery.js"></script>
+    <script src="~/Content/js/index.js"></script>
+
+</body>
+</html>

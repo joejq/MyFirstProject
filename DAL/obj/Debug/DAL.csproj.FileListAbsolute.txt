@@ -1,0 +1,16 @@
+C:\Users\joejq\Desktop\DotNET\CampusClubService\DAL\bin\Debug\DAL.dll.config
+C:\Users\joejq\Desktop\DotNET\CampusClubService\DAL\bin\Debug\DAL.dll
+C:\Users\joejq\Desktop\DotNET\CampusClubService\DAL\bin\Debug\DAL.pdb
+C:\Users\joejq\Desktop\DotNET\CampusClubService\DAL\bin\Debug\EntityFramework.dll
+C:\Users\joejq\Desktop\DotNET\CampusClubService\DAL\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\joejq\Desktop\DotNET\CampusClubService\DAL\bin\Debug\IDAL.dll
+C:\Users\joejq\Desktop\DotNET\CampusClubService\DAL\bin\Debug\Model.dll
+C:\Users\joejq\Desktop\DotNET\CampusClubService\DAL\bin\Debug\IDAL.pdb
+C:\Users\joejq\Desktop\DotNET\CampusClubService\DAL\bin\Debug\Model.pdb
+C:\Users\joejq\Desktop\DotNET\CampusClubService\DAL\bin\Debug\EntityFramework.xml
+C:\Users\joejq\Desktop\DotNET\CampusClubService\DAL\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\joejq\Desktop\DotNET\CampusClubService\DAL\bin\Debug\zh-Hans\EntityFramework.resources.dll
+C:\Users\joejq\Desktop\DotNET\CampusClubService\DAL\obj\Debug\DAL.csprojResolveAssemblyReference.cache
+C:\Users\joejq\Desktop\DotNET\CampusClubService\DAL\obj\Debug\DAL.dll
+C:\Users\joejq\Desktop\DotNET\CampusClubService\DAL\obj\Debug\DAL.pdb
+C:\Users\joejq\Desktop\DotNET\CampusClubService\DAL\bin\Debug\zh-Hans\EntityFramework.SqlServer.resources.dll

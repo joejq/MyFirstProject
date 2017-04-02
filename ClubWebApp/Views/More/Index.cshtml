@@ -1,0 +1,181 @@
+﻿
+@{
+    ViewBag.Title = "更多内容";
+    Layout = "~/Views/Shared/_LayoutMorePage.cshtml";
+}
+@section head{
+    <script>
+        $(function () {
+            var type = "@ViewBag.Type";
+            var first = document.getElementById("first");
+            var second = document.getElementById("second");
+            var third = document.getElementById("third");
+            var logo = document.getElementById("logo");
+            if(type=="news"){
+                first.style.backgroundColor = "#FF0005";
+                logo.innerHTML = "动态列表";
+                loadNews();
+            }
+            if(type=="activities"){
+                second.style.backgroundColor = "#FF0005";
+                logo.innerHTML = "成果列表";
+                loadActivities();
+            }
+            if(type=="notice"){
+                third.style.backgroundColor = "#FF0005";
+                logo.innerHTML = "公告列表";
+                loadNotice();
+            }
+            first.addEventListener("click", change, false);
+            second.addEventListener("click", change, false);
+            third.addEventListener("click", change, false);
+        });
+        function change() {
+            if (this.id == "first") {
+                second.style.backgroundColor = "#a50b0b";
+                third.style.backgroundColor = "#a50b0b";
+                first.style.backgroundColor = "#FF0005";
+                loadNews(1);
+                logo.innerHTML = "动态列表";
+            } else if (this.id == "second") {
+                second.style.backgroundColor = "#FF0005";
+                third.style.backgroundColor = "#a50b0b";
+                first.style.backgroundColor = "#a50b0b";
+                loadActivities(1);
+                logo.innerHTML = "成果列表";
+            } else if (this.id == "third") {
+                second.style.backgroundColor = "#a50b0b";
+                third.style.backgroundColor = "#FF0005";
+                first.style.backgroundColor = "#a50b0b";
+                loadNotice(1);
+                logo.innerHTML = "公告列表";
+            }
+            window.event.stopPropagation();
+        }
+        function loadNews(pageIndex) {
+            $.ajax({
+                type: "GET",
+                url: "/More/LoadNews/"+@ViewBag.Cid+"?pageIndex=" + pageIndex,
+                dataType: "json",
+                success: function (data) {
+                    $('#content').empty();
+                    var html = '';
+                    var json = eval("(" + data + ")");
+                    var news = json.news;
+                    if(news == "") {
+                        html += '<tr><td>内容为空</td></tr>';
+                        $("#content").append(html);
+                        return;
+                    }
+                    //加载内容
+                    for (var i = 0; i < news.length; i++) {
+                        var title = getMyTitle(news[i].Ntitle, 30);
+                        var date = getMyDate(news[i].Ntime);
+                        html += '<tr><td class="content_table_content"><a href="/More/Details?id=' + news[i].ID + '&type=news">' + title + '</a></td><td class="content_table_time">' + date + '</td></tr>';
+                        //html += '<tr><td class="content_table_content">' + title + '</td><td class="content_table_time">' + date + '</td><td style="text-align:center"><input type="button" value="修改" onclick="editNews(' + news[i].ID + ')" />&nbsp;&nbsp;<input type="button" value="删除" onclick="deleteNews(' + news[i].ID + ', this)" /></td></tr>';
+                    }
+                    //页码条
+                    if(json.pageBar != "") html += '<tr><td align="center" colspan="7"><div id="showPageBar" class="page_nav">' + json.pageBar + '</div></td></tr>';
+                    $('#content').append(html);
+                }
+            });
+        }
+        function loadActivities(pageIndex) {
+            $.ajax({
+                type: "GET",
+                url: "/More/LoadActivities/"+@ViewBag.Cid+"?pageIndex=" + pageIndex,
+                dataType: "json",
+                success: function (data) {
+                    $('#content').empty();
+                    var html = '';
+                    var json = eval("(" + data + ")");
+                    var activities = json.activities;
+                    if(activities == "") {
+                        html += '<tr><td>内容为空</td></tr>';
+                        $("#content").append(html);
+                        return;
+                    }
+                    //加载内容
+                    for(var i = 0; i < activities.length; i++) {
+                        var title = getMyTitle(activities[i].Atitle, 30);
+                        var date = getMyDate(activities[i].Atime);
+                        html += '<tr><td class="content_table_content"><a href="/More/Details?id=' + activities[i].ID + '&type=activities">' + title + '</a></td><td class="content_table_time">' + date + '</td></tr>';
+                        }
+                    //页码条
+                    if(json.pageBar != "") html += '<tr><td align="center" colspan="7"><div id="showPageBar" class="page_nav">' + json.pageBar + '</div></td></tr>';
+                    $('#content').append(html);
+                }
+            });
+        }
+        /*Show or hide modal*/
+        function overlay() {
+            var e1 = document.getElementById('modal-overlay');
+            e1.style.visibility = (e1.style.visibility == "visible") ? "hidden" : "visible";
+        }
+        function showNotice(content) {
+            overlay();
+            $("#notcieContent").val(content);
+        }
+        function loadNotice(pageIndex) {
+            $.ajax({
+                type: "GET",
+                url: "/More/LoadNotice/"+@ViewBag.Cid+"?pageIndex=" + pageIndex,
+                dataType: "json",
+                success: function (data) {
+                    $('#content').empty();
+                    var html = '';
+                    var json = eval("(" + data + ")");
+                    var notice = json.notice;
+                    if(notice == "") {
+                        html += '<tr><td>内容为空</td></tr>';
+                        $("#content").append(html);
+                        return;
+                    }
+                    //加载内容
+                    for (var i = 0; i < notice.length; i++) {
+                        //var title = getMyTitle(notice[i].Ncontent, 100);
+                        var date = getMyDate(notice[i].Subtime);
+                        html += '<tr><td class="content_table_content"><a id="notice" href="javascript:showNotice(' + notice[i].Ncontent + ');">' + notice[i].Ncontent + '</a></td><td class="content_table_time">' + date + '</td></tr>';
+                        //$("#notice").click(function () { alert("hhhh"); });
+                    }
+                    //页码条
+                    if(json.pageBar != "") html += '<tr><td align="center" colspan="7"><div id="showPageBar" class="page_nav">' + json.pageBar + '</div></td></tr>';
+                    $('#content').append(html);
+                }
+            });
+        }
+        
+    </script>
+}
+<!-- 模态框（Modal） -->
+<div id="modal-overlay">
+    <div class="modal-data">
+        <p style="font-family:'Microsoft YaHei';font-size:20px;color:#c10f0e;">公告详情</p>
+        <textarea id="notcieContent" style="font-size:15px;width:100%;" rows="5" readonly="readonly"></textarea>
+        <br /><br />
+        <button onclick="overlay()">确定</button>
+    </div>
+</div>
+<!--Modal 结束-->
+<div class="decoration" style="min-width:1000px;"></div>
+<div class="more_content">
+    <div class="left_nav">
+        <div class="nav" id="first">动态列表</div>
+        <div class="nav" id="second">成果列表</div>
+        <div class="nav" id="third">公告列表</div>
+    </div>
+    <div class="right_nav">
+        <div class="more_logo" id="logo">正在加载中……</div>
+        <table class="content_table" id="content">
+            <tr style="height:40px;">
+                <td class="content_table_content">
+                    <a href="单个.html" class="content_one"></a>
+                </td>
+                <td class="content_table_time">
+                    @*2016-07-04*@
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+

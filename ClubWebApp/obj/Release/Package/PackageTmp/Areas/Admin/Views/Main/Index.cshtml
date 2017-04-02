@@ -1,0 +1,472 @@
+﻿
+@{
+    ViewBag.Title = "后台管理";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section head{
+    <link href="~/Content/css/后台2.css" rel="stylesheet" />
+    <link href="~/Content/css/PageBarStyle.css" rel="stylesheet" />
+    <script>
+    var type;
+    $(function () {
+        loadNews();
+        var first = document.getElementById("first");
+        var second = document.getElementById("second");
+        var third = document.getElementById("third");
+        var forth = document.getElementById("forth");
+        var logo = document.getElementById("logo");
+        type = "news";
+        first.addEventListener("click", change, false);
+        second.addEventListener("click", change, false);
+        third.addEventListener("click", change, false);
+        forth.addEventListener("click", change, false);
+    });
+    function change() {
+        if (this.id == "first") {
+            second.style.backgroundColor = "#c10f0e";
+            third.style.backgroundColor = "#c10f0e";
+            forth.style.backgroundColor = "#c10f0e";
+            first.style.backgroundColor = "#FF0005";
+            type = "news";
+            loadNews(1);
+            logo.innerHTML = "动态列表";
+        } else if(this.id == "second") {
+            first.style.backgroundColor = "#c10f0e";
+            third.style.backgroundColor = "#c10f0e";
+            forth.style.backgroundColor = "#c10f0e";
+            second.style.backgroundColor = "#FF0005";
+            type = "activities";
+            loadActivities(1);
+            logo.innerHTML = "成果列表";
+        } else if (this.id == "third") {
+            third.style.backgroundColor = "#FF0005";
+            first.style.backgroundColor = "#c10f0e";
+            second.style.backgroundColor = "#c10f0e";
+            forth.style.backgroundColor = "#c10f0e";
+            type = "modal";
+            loadNotice(1);
+            logo.innerHTML = "公告列表";
+        } else if (this.id == "forth") {
+            first.style.backgroundColor = "#c10f0e";
+            second.style.backgroundColor = "#c10f0e";
+            third.style.backgroundColor = "#c10f0e";
+            forth.style.backgroundColor = "#FF0005";
+            loadDisplay();
+            //loadNotice(1);
+            logo.innerHTML = "社团风采";
+        }
+        window.event.stopPropagation();
+    }
+    
+    /*Add*/
+    function add() {
+        switch (type) {
+            case "news":
+                window.open('@Url.Action("AddNews", "News")');
+                break;
+            case "activities":
+                window.open('@Url.Action("AddActivities", "Activities")');
+                break;
+            case "notice":
+                //window.open('@Url.Action("AddNotice", "Notice")');
+                break;
+            case "modal":
+                overlay();
+                break;
+        }
+    }
+        /*Show or hide modal*/
+        function overlay() {
+            var e1 = document.getElementById('modal-overlay');
+            e1.style.visibility = (e1.style.visibility == "visible") ? "hidden" : "visible";
+        }
+    /*ajax add notice*/
+        function modalOk() {
+            var str = $("#notcieContent").val();
+            $.ajax({
+            type: 'GET',
+            url: '@Url.Action("AddNotice", "Notice")',
+            data: '&content=' + str,
+            success: function (data) {
+               if(data == "Ok") {
+                   overlay();
+                   alert("添加成功");
+                   $("#notcieContent").val(""); //设置为空
+                   loadNotice(1);
+               } else {
+                   alert("添加失败，请重试！");
+               }
+            }
+        });
+    }
+
+    /*Edit*/
+    function editNews(id) { window.open('/Admin/News/EditNews?id=' + id); }
+    function editActivities(id) { window.open('/Admin/Activities/EditActivities?id=' + id); }
+    function editNotice(id) {
+        var strId = "showNotice" + id;
+        var obj = document.getElementById(strId);
+        var str = $(obj).val();
+        $.ajax({
+            type: 'GET',
+            url: '@Url.Action("EditNotice", "Notice")',
+            data: '&id=' + id + '&content=' + str,
+            success: function (data) {
+                if(data == "Ok") {
+                    alert("修改成功");
+                } else {
+                    alert("修改失败，请重试！");
+                }
+            }
+        });
+    }
+
+    /*Load*/
+    function loadNews(pageIndex) {
+        $("#content").css("display", "block");
+        $("#disContent").css("display", "none");
+        $("#add").css("display", "block");
+        $.ajax({
+            type: "GET",
+            url: "/Admin/News/Index/"+@ViewBag.Cid+"?pageIndex=" + pageIndex,
+            dataType: "json",
+            success: function (data) {
+                $('#content').empty();
+                var html = '';
+                var json = eval("(" + data + ")");
+                var news = json.news;
+                if(news == "") {
+                    html += '<tr><td>内容为空</td></tr>';
+                    $("#content").append(html);
+                    return;
+                }
+                //加载内容
+                for (var i = 0; i < news.length; i++) {
+                    var title = getMyTitle(news[i].Ntitle, 30);
+                    var date = getMyDate(news[i].Ntime);
+                    //alert(date);
+                    html += '<tr><td class="content_table_content">' + title + '</td><td class="content_table_time">' + date + '</td><td style="text-align:center"><input type="button" class="operation_btn" value="修改" onclick="editNews(' + news[i].ID + ')" />&nbsp;&nbsp;<input type="button" class="operation_btn" value="删除" onclick="deleteNews(' + news[i].ID + ', this)" /></td></tr>';
+                }
+                //页码条
+                if(json.pageBar != "") html += '<tr><td align="center" colspan="7"><div id="showPageBar" class="page_nav">' + json.pageBar + '</div></td></tr>';
+                $('#content').append(html);
+                $.parser.parse();
+            }
+        });
+    }
+    function loadActivities(pageIndex) {
+        $("#content").css("display", "block");
+        $("#disContent").css("display", "none");
+        $("#add").css("display", "block");
+        $.ajax({
+            type: "GET",
+            url: "/Admin/Activities/Index/"+@ViewBag.Cid+"?pageIndex=" + pageIndex,
+            dataType: "json",
+            success: function (data) {
+                $('#content').empty();
+                var html = '';
+                var json = eval("(" + data + ")");
+                var activities = json.activities;
+                if(activities == "") {
+                    html += '<tr><td>内容为空</td></tr>';
+                    $("#content").append(html);
+                    return;
+                }
+                for (var i = 0; i < activities.length; i++) {
+                    var title = getMyTitle(activities[i].Atitle, 30);
+                    var date = getMyDate(activities[i].Atime);
+                    html += '<tr><td class="content_table_content">' + title + '</td><td class="content_table_time">' + date + '</td><td style="text-align:center"><input type="button" class="operation_btn" value="修改" onclick="editActivities(' + activities[i].ID + ')" />&nbsp;&nbsp;<input type="button" class="operation_btn" value="删除" onclick="deleteActivities(' + activities[i].ID + ', this)" /></td></tr>';
+                }
+                if(json.pageBar != "") html += '<tr><td align="center" colspan="7"><div id="showPageBar" class="page_nav">' + json.pageBar + '</div></td></tr>';
+                $('#content').append(html);
+                $.parser.parse();
+            }
+        });
+    }
+    function loadNotice(pageIndex) {
+        $("#content").css("display", "block");
+        $("#disContent").css("display", "none");
+        $("#add").css("display", "block");
+        $.ajax({
+            type: "GET",
+            url: "/Admin/Notice/Index/"+@ViewBag.Cid+"?pageIndex=" + pageIndex,
+            dataType: "json",
+            success: function (data) {
+                $('#content').empty();
+                var json = eval("(" + data + ")");
+                var html = '';
+                var notice = json.notice;
+                if(notice == "") {
+                    html += '<tr><td>内容为空</td></tr>';
+                    $("#content").append(html);
+                    return;
+                }
+                for (var i = 0; i < notice.length; i++) {
+                    var nid = notice[i].ID;
+                    var content = notice[i].Ncontent;
+                    var date = getMyDate(notice[i].Subtime);
+                    html += '<tr><td class="content_table_content"><textarea id="showNotice' + nid + '" rows="3" style="width:500px;font-size:15px;">' + content + '</textarea></td><td class="content_table_time">' + date + '</td><td style="text-align:center"><input type="button" class="operation_btn" value="修改" onclick="editNotice(' + nid + ')" />&nbsp;&nbsp;<input type="button" class="operation_btn" value="删除" onclick="deleteNotice(' + nid + ', this)" /></td></tr>';
+
+                }
+                if(json.pageBar != "") html += '<tr><td align="center" colspan="7"><div id="showPageBar" class="page_nav">' + json.pageBar + '</div></td></tr>';
+                $('#content').append(html);
+                $.parser.parse();
+            }
+        });
+    }
+        function loadDisplay() {
+            $("#content").css("display", "none");
+            $("#disContent").css("display", "block");
+            $("#add").css("display", "none");
+            $.ajax({
+                type: "GET",
+                url: "/Admin/Display/Index",
+                dataType: "json",
+                success: function (data) {
+                    var displays = eval("(" + data + ")");
+                    if (displays == "" || displays == null) return;
+                    for (var i = 0; i < displays.length; i++) {
+                        if (i > 3) break;
+                        var imgId = "disImg" + (i+1);
+                        var disImg = document.getElementById(imgId);
+                        disImg.src = displays[i].FilePath;
+                    }
+                }
+            });
+        }
+        function displayUpload(i) {
+            var formData = new FormData();
+            var id = "disFile" + i;
+            formData.append("imgfile", document.getElementById(id).files[0]);
+            $.ajax({
+                url: "/Admin/Display/UploadDisplay?imgid="+i,
+                type: "POST",
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function (data) {
+                    alert("上传成功！");
+                },
+                error: function () {
+                    alert("上传失败！");
+                }
+            });
+        }
+
+    /*Delete*/
+    //动态删除页面结点
+    function deleteNode(element) {
+        var obj = element.parentNode.parentNode;
+        var tagName = obj.nodeName;
+        if(tagName == "TR" || tagName == "tr") {
+            obj.parentNode.removeChild(obj);
+        }
+    }
+    //后台删除
+    function deleteNews(id, ele) {
+        if (!confirm("确认要删除？")) return;
+        $.ajax({
+            url: '@Url.Action("DeleteNews", "News")',
+            type: "GET",
+            data: "&id=" + id,
+            success: function (data) {
+                if(data == "Ok") {
+                    alert("删除成功！");
+                    //动态删除页面结点
+                    deleteNode(ele);
+                } else {
+                    alert("删除失败，请重试");
+                }
+            }
+        });
+    }
+    function deleteActivities(id, ele) {
+            if (!confirm("确认要删除？")) return;
+        $.ajax({
+            url: '@Url.Action("DeleteActivities", "Activities")',
+            type: "GET",
+            data: "&id=" + id,
+            success: function (data) {
+                if(data == "Ok") {
+                    alert("删除成功！");
+                    //动态删除页面结点
+                    deleteNode(ele);
+                } else {
+                    alert("删除失败，请重试");
+                }
+            }
+        });
+    }
+    function deleteNotice(id, ele) {
+        if (!confirm("确认要删除？")) return;
+        $.ajax({
+            url: '@Url.Action("DeleteNotice", "Notice")',
+            type: "GET",
+            data: "&id=" + id,
+            success: function (data) {
+                if(data == "Ok") {
+                    alert("删除成功！");
+                    //动态删除页面结点
+                    deleteNode(ele);
+                } else {
+                    alert("删除失败，请重试");
+                }
+            }
+        });
+    }
+    </script>
+}
+<div class="title"><table style="text-align:center;height:80%;margin:auto;">
+    <tr>
+        <td><img src="@ViewBag.Img" alt="" class="title_img" /></td>
+        <td>@ViewBag.ClubName 后台管理</td>
+    </tr></table></div>
+<!-- 模态框（Modal） -->
+<div id="modal-overlay">
+    <div class="modal-data">
+        <p style="font-family:'Microsoft YaHei';font-size:20px;color:#c10f0e;">添加公告</p>
+        <textarea id="notcieContent" style="font-size:15px;width:100%;" rows="5">这里添加你的新公告</textarea>
+        <br/><br/>
+        <button onclick="modalOk()">添加</button>&nbsp;&nbsp;<button onclick="overlay()">取消</button>
+    </div>
+</div>
+<div class="decoration">
+    <table class="decoration_table">
+        <tr>
+            <td><a href='@Url.Action("EditClubInfo")' style="font-size:20px;" target="_blank">修改协会信息</a></td>
+            <td><a href='@Url.Action("EditLeaderInfo")' style="font-size:20px;" target="_blank">修改会长信息</a></td>
+        </tr>
+    </table>
+</div>
+<div class="more_content">
+    <div class="left_nav">
+        <div class="nav" style="background-color:#FF0005" id="first">动态列表</div>
+        <div class="nav" id="second">成果列表</div>
+        <div class="nav" id="third">公告列表</div>
+        <div class="nav" id="forth">社团风采</div>
+    </div>
+    <div class="right_nav">
+        <div class="more_logo" id="logo">动态列表</div>
+        <input type="button" id="add" value="增加" class="add_information_btn" onclick="add()" />
+        <table id="content" class="content_table">
+            <tr>
+                <td class="content_table_content">
+                    @*故事：文学体裁的一种，侧重于事件发展过程的描述。强调情节的生动性和连贯性，较适于口头讲述。已经发生事。或者想象故事。故事一般都和原始人类的生产生活有密切关系，他们迫切地希望认识自然，于是便以自身为依据，想象天地万物都和人一样，有着生命和意志。*@
+                </td>
+                <td class="content_table_time">
+                    @*2016-07-04*@
+                </td>
+                <td style="text-align:center">
+                    <input type="button" value="修改" />
+                    <input type="button" value="删除" />
+                </td>
+            </tr>
+        </table>
+        <!--Display Content-->
+        <div id="disContent" style="margin-top: 60px;margin-left: 10px;display: none;">
+            <table style="margin: auto;text-align: center">
+                <tr>
+                    <td>
+                        <div style="border: solid 2px grey;width: 270px">
+                            <img src="~/Content/images/default/display.png" alt="" class="display_img" id="disImg1" /><br />
+                            <input type="file" id="disFile1" /><br /><br /><button style="width: 80px;height: 30px;" onclick="displayUpload(1)">上传图片</button>
+                            <br /><br />
+                        </div>
+                    </td>
+                    <td>
+                        <div style="border: solid 2px grey;width: 270px;margin-left:20px;">
+                            <img src="~/Content/images/default/display.png" alt="" class="display_img" id="disImg2" /><br />
+                            <input type="file" id="disFile2" /><br /><br/><button style="width: 80px;height: 30px;" onclick="displayUpload(2)">上传图片</button>
+                            <br /><br />                    
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div style="border: solid 2px grey;width: 270px;margin-top:20px;">
+                            <img src="~/Content/images/default/display.png" alt="" class="display_img" id="disImg3" /><br />
+                            <input type="file" id="disFile3" /><br /><br /><button style="width: 80px;height: 30px;" onclick="displayUpload(3)">上传图片</button>
+                            <br /><br />
+                        </div>
+                    </td>
+                    <td>
+                        <div style="border: solid 2px grey;width: 270px;margin-left:20px;margin-top:20px;">
+                            <img src="~/Content/images/default/display.png" alt="" class="display_img" id="disImg4" /><br />
+                            <input type="file" id="disFile4" /><br /><br /><button style="width: 80px;height: 30px;" onclick="displayUpload(4)">上传图片</button>
+                            <br /><br />
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <script>
+            if(window.File&&window.FileList&&window.Blob&&window.FileReader){
+                document.getElementById("disFile1").addEventListener('change', fileSelect1, false);
+                document.getElementById("disFile2").addEventListener('change', fileSelect2, false);
+                document.getElementById("disFile3").addEventListener('change', fileSelect3, false);
+                document.getElementById("disFile4").addEventListener('change', fileSelect4, false);
+            }else{
+                alert("您的浏览器不支持File Api");
+            }
+            function fileSelect1(e) {
+                e = e || window.event;
+                var files = e.target.files;
+                var file = files[0];
+                var reader = new FileReader();
+                if( !(/image\/\w+/.test(file.type)) ){
+                    alert("这里需要图片!");
+                    return false;
+                }
+                reader.readAsDataURL(file);
+                reader.onload=function(e){
+                    document.getElementById("disImg1").src=this.result;
+                }
+            }
+            function fileSelect2(e) {
+                e = e || window.event;
+                var files = e.target.files;
+                var file = files[0];
+                var reader = new FileReader();
+                if( !(/image\/\w+/.test(file.type)) ){
+                    alert("这里需要图片!");
+                    return false;
+                }
+                reader.readAsDataURL(file);
+                reader.onload=function(e){
+                    document.getElementById("disImg2").src = this.result;
+                }
+            }
+            function fileSelect3(e) {
+                e = e || window.event;
+                var files = e.target.files;
+                var file = files[0];
+                var reader = new FileReader();
+                if( !(/image\/\w+/.test(file.type)) ){
+                    alert("这里需要图片!");
+                    return false;
+                }
+                reader.readAsDataURL(file);
+                reader.onload=function(e){
+                    document.getElementById("disImg3").src = this.result;
+                }
+            }
+            function fileSelect4(e) {
+                e = e || window.event;
+                var files = e.target.files;
+                var file = files[0];
+                var reader = new FileReader();
+                if( !(/image\/\w+/.test(file.type)) ){
+                    alert("这里需要图片!");
+                    return false;
+                }
+                reader.readAsDataURL(file);
+                reader.onload=function(e){
+                    document.getElementById("disImg4").src = this.result;
+                }
+            }
+        </script>
+
+    </div>
+</div>        
+
+

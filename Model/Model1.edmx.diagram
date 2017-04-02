@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="9dc44cda8d024fdabd47f7d4e3b31c62" Name="Diagram1">
+        <EntityTypeShape EntityType="CalligenceBotModel.Activities" Width="1.5" PointX="3" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CalligenceBotModel.BackManager" Width="1.5" PointX="3" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="CalligenceBotModel.ClubLeader" Width="1.5" PointX="3" PointY="8.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="CalligenceBotModel.Clubs" Width="1.5" PointX="0.75" PointY="10.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="CalligenceBotModel.LearnMore" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CalligenceBotModel.MainInfo" Width="1.5" PointX="3" PointY="12.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="CalligenceBotModel.News" Width="1.5" PointX="3" PointY="15.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CalligenceBotModel.Notice" Width="1.5" PointX="3" PointY="19.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="CalligenceBotModel.RegisteClub" Width="1.5" PointX="5.75" PointY="3.75" IsExpanded="true" />
+        <AssociationConnector Association="CalligenceBotModel.FK__Activities__CID__45F365D3" ManuallyRouted="false" />
+        <AssociationConnector Association="CalligenceBotModel.FK__BackManager__CID__5165187F" ManuallyRouted="false" />
+        <AssociationConnector Association="CalligenceBotModel.FK__ClubLeader__CID__4E88ABD4" ManuallyRouted="false" />
+        <AssociationConnector Association="CalligenceBotModel.FK__MainInfo__CID__3D5E1FD2" ManuallyRouted="false" />
+        <AssociationConnector Association="CalligenceBotModel.FK__News__CID__48CFD27E" ManuallyRouted="false" />
+        <AssociationConnector Association="CalligenceBotModel.FK__Notice__CID__4BAC3F29" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

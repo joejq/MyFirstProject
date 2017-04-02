@@ -1,0 +1,16 @@
+C:\Users\joejq\Desktop\DotNET\CampusClubService\BLL\obj\Release\BLL.csprojResolveAssemblyReference.cache
+C:\Users\joejq\Desktop\DotNET\CampusClubService\BLL\bin\Release\BLL.dll
+C:\Users\joejq\Desktop\DotNET\CampusClubService\BLL\bin\Release\BLL.pdb
+C:\Users\joejq\Desktop\DotNET\CampusClubService\BLL\bin\Release\DAL.dll
+C:\Users\joejq\Desktop\DotNET\CampusClubService\BLL\bin\Release\IBLL.dll
+C:\Users\joejq\Desktop\DotNET\CampusClubService\BLL\bin\Release\IDAL.dll
+C:\Users\joejq\Desktop\DotNET\CampusClubService\BLL\bin\Release\Model.dll
+C:\Users\joejq\Desktop\DotNET\CampusClubService\BLL\bin\Release\EntityFramework.dll
+C:\Users\joejq\Desktop\DotNET\CampusClubService\BLL\bin\Release\DAL.pdb
+C:\Users\joejq\Desktop\DotNET\CampusClubService\BLL\bin\Release\IBLL.pdb
+C:\Users\joejq\Desktop\DotNET\CampusClubService\BLL\bin\Release\IDAL.pdb
+C:\Users\joejq\Desktop\DotNET\CampusClubService\BLL\bin\Release\Model.pdb
+C:\Users\joejq\Desktop\DotNET\CampusClubService\BLL\bin\Release\EntityFramework.xml
+C:\Users\joejq\Desktop\DotNET\CampusClubService\BLL\bin\Release\zh-Hans\EntityFramework.resources.dll
+C:\Users\joejq\Desktop\DotNET\CampusClubService\BLL\obj\Release\BLL.dll
+C:\Users\joejq\Desktop\DotNET\CampusClubService\BLL\obj\Release\BLL.pdb

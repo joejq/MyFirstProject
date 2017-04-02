@@ -1,0 +1,189 @@
+.hope_container{
+    width: 550px;
+    margin: auto;
+    margin-top: 150px;
+}
+.hope_table{
+    width: 100%;
+    box-shadow: 0px 0px 2px orangered;
+}
+.hope_table tr{
+    height: 50px;
+}
+.hope_table_title{
+    width: 100%;
+    height: 30px;
+    text-align: center;
+    background-color: #c71010;
+    color: #ffffff;
+    font-size: 20px;
+}
+.hope_table_btn_tr{
+    text-align: center;
+}
+#hope_table_btn{
+    background-color: #d71111;
+    color: #ffffff;
+    border: none;
+    width: 50px;
+    height: 33px;
+    border-radius: 3px;
+}
+#hope_table_btn:hover{
+    background-color: #ff7f00;
+    cursor: pointer;
+}
+
+
+.detail_container{
+    width: 600px;
+    margin: auto;
+    margin-top: 150px;
+    box-shadow: 0px 0px 2px orangered;
+}
+.detail_table{
+    width: 100%;
+}
+.detail_table tr{
+    height: 40px;
+}
+.detail_table_title{
+    background-color: #c70e0e;
+    color: #ffffff;
+    text-align: center;
+    height: 40px;
+    font-size: 20px;
+}
+.detail_table_first_td{
+    text-align: right;
+}
+.detail_table_second_td{
+    text-align: center;
+}
+#logo{
+    width: 100px;
+    height: 100px;
+    border: solid 1px grey;
+}
+.go_btn{
+    background-color: #d71111;
+    color: #ffffff;
+    border: none;
+    width: 50px;
+    height: 33px;
+    border-radius: 3px;
+}
+.go_btn:hover{
+    background-color: #ff7f00;
+    cursor: pointer;
+}
+
+
+
+.title{
+    width: 100%;
+    height: 140px;
+    color: #000000;
+    text-align: center;
+    padding-top: 20px;
+}
+.decoration{
+    width: 100%;
+    height: 10px;
+    background-color: #c70e0e;
+}
+.title_img{
+    width: 100px;
+    height: 100px;
+}
+.more_content{
+    width: 1000px;
+    margin: auto;
+    margin-top: 20px;
+    box-shadow:0px 0px 1px #ff8600;
+}
+.left_nav{
+    width: 200px;
+    border-right: solid 3px #ffccb2;
+    text-align: center;
+    padding-top: 250px;
+    padding-bottom: 280px;
+    float: left;
+}
+.nav{
+    margin: auto;
+    width: 130px;
+    height: 70px;
+    background-color: #a50b0b;
+    color: #ffffff;
+    text-align: center;
+    line-height: 70px;
+    border-bottom: solid 1px orangered;
+}
+.nav:hover{
+    background-color: #FF0005;
+    cursor: pointer;
+}
+.right_nav{
+    width: 750px;
+    float: right;
+    
+}
+.more_logo{
+    background-color: #c70e0e;
+    width: 100px;
+    height: 30px;
+    font-size: 20px;
+    text-align: center;
+    border-radius: 30px;
+    color: #ffffff;
+}
+.add_information_btn{
+    background-color: #e1e1e1;
+    color: red;
+    border: none;
+    float: right;
+    width: 50px;
+    height: 30px;
+    border-radius: 3px;
+    font-size: 18px;
+}
+.add_information_btn:hover{
+    background-color: grey;
+    cursor: pointer;
+}
+.super_table{
+    width: 100%;
+    margin: auto;
+    margin-top: 35px;
+}
+.super_title{
+    font-size: 20px;
+    border-bottom: solid 2px #000000;
+    text-align: center;
+}
+.super_table tr td{
+    text-align: center;
+    border-bottom: solid 2px orangered;
+    height: 30px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,16 @@
+C:\Users\joejq\Desktop\DotNET\CampusClubService\BLL\bin\Debug\BLL.dll
+C:\Users\joejq\Desktop\DotNET\CampusClubService\BLL\bin\Debug\BLL.pdb
+C:\Users\joejq\Desktop\DotNET\CampusClubService\BLL\bin\Debug\DAL.dll
+C:\Users\joejq\Desktop\DotNET\CampusClubService\BLL\bin\Debug\IBLL.dll
+C:\Users\joejq\Desktop\DotNET\CampusClubService\BLL\bin\Debug\IDAL.dll
+C:\Users\joejq\Desktop\DotNET\CampusClubService\BLL\bin\Debug\Model.dll
+C:\Users\joejq\Desktop\DotNET\CampusClubService\BLL\bin\Debug\EntityFramework.dll
+C:\Users\joejq\Desktop\DotNET\CampusClubService\BLL\bin\Debug\DAL.pdb
+C:\Users\joejq\Desktop\DotNET\CampusClubService\BLL\bin\Debug\IBLL.pdb
+C:\Users\joejq\Desktop\DotNET\CampusClubService\BLL\bin\Debug\IDAL.pdb
+C:\Users\joejq\Desktop\DotNET\CampusClubService\BLL\bin\Debug\Model.pdb
+C:\Users\joejq\Desktop\DotNET\CampusClubService\BLL\bin\Debug\EntityFramework.xml
+C:\Users\joejq\Desktop\DotNET\CampusClubService\BLL\bin\Debug\zh-Hans\EntityFramework.resources.dll
+C:\Users\joejq\Desktop\DotNET\CampusClubService\BLL\obj\Debug\BLL.csprojResolveAssemblyReference.cache
+C:\Users\joejq\Desktop\DotNET\CampusClubService\BLL\obj\Debug\BLL.dll
+C:\Users\joejq\Desktop\DotNET\CampusClubService\BLL\obj\Debug\BLL.pdb

@@ -1,0 +1,37 @@
+﻿
+@{
+
+    Layout = null;
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewData["Title"]</title>
+    <link href="~/Content/css/introduction.css" rel="stylesheet" />
+    <script src="~/Content/js/jquery.js"></script>
+    <script src="~/Content/js/utility.js"></script>
+</head>
+<body>
+    <div style="text-align: center;width: 100%;min-width:800px;line-height: 100px;font-size: 28px;font-family:'Microsoft YaHei';">@ViewData["Title"]</div>
+    <div class="decoration"></div>
+    <div class="article">
+        <table class="article_table">
+            <tr><td style="text-align: center;font-size: 20px">作者：<span>管理员</span></td></tr>
+            <tr><td class="article_time">时间： @ViewData["Date"]</td></tr>
+            <tr>
+                <td>
+                    @{
+                        string str = ViewData["Content"].ToString();
+                    }@Html.Raw(str)
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <br />
+    <br />
+    <div style="text-align:center;width:100%;min-width:800px;float:left;border-top:solid 1px orangered;margin-top:10px;"><p>@DateTime.Now.Year - 版权归江苏科技大学（张家港校区）计算机协会所有</p></div>
+</body>
+</html>

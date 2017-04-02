@@ -1,0 +1,238 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="CalligenceBotModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Activities">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Atitle" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Acontent" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Atime" Type="DateTime" Precision="3" />
+    <Property Name="Aimage" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Subtime" Type="DateTime" Precision="3" />
+    <Property Name="Delflag" Type="Int16" />
+    <Property Name="CID" Type="Int32" />
+    <NavigationProperty Name="Clubs" Relationship="Self.FK__Activities__CID__45F365D3" FromRole="Activities" ToRole="Clubs" />
+  </EntityType>
+  <EntityType Name="BackManager">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Busername" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Bpass" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Bcontact" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Subtime" Type="DateTime" Precision="3" />
+    <Property Name="Delflag" Type="Int16" />
+    <Property Name="CID" Type="Int32" />
+    <NavigationProperty Name="Clubs" Relationship="Self.FK__BackManager__CID__5165187F" FromRole="BackManager" ToRole="Clubs" />
+  </EntityType>
+  <EntityType Name="ClubLeader">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Lname" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Lmajor" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Lcontact" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Lregiste" Type="DateTime" Precision="3" />
+    <Property Name="Lsex" Type="Int16" />
+    <Property Name="Limage" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Subtime" Type="DateTime" Precision="3" />
+    <Property Name="Delflag" Type="Int16" />
+    <Property Name="CID" Type="Int32" />
+    <NavigationProperty Name="Clubs" Relationship="Self.FK__ClubLeader__CID__4E88ABD4" FromRole="ClubLeader" ToRole="Clubs" />
+  </EntityType>
+  <EntityType Name="Clubs">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Cname" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Subtime" Type="DateTime" Precision="3" />
+    <Property Name="Delflag" Type="Int16" />
+    <NavigationProperty Name="Activities" Relationship="Self.FK__Activities__CID__45F365D3" FromRole="Clubs" ToRole="Activities" />
+    <NavigationProperty Name="BackManager" Relationship="Self.FK__BackManager__CID__5165187F" FromRole="Clubs" ToRole="BackManager" />
+    <NavigationProperty Name="ClubLeader" Relationship="Self.FK__ClubLeader__CID__4E88ABD4" FromRole="Clubs" ToRole="ClubLeader" />
+    <NavigationProperty Name="MainInfo" Relationship="Self.FK__MainInfo__CID__3D5E1FD2" FromRole="Clubs" ToRole="MainInfo" />
+    <NavigationProperty Name="News" Relationship="Self.FK__News__CID__48CFD27E" FromRole="Clubs" ToRole="News" />
+    <NavigationProperty Name="Notice" Relationship="Self.FK__Notice__CID__4BAC3F29" FromRole="Clubs" ToRole="Notice" />
+  </EntityType>
+  <EntityType Name="LearnMore">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Lcontent" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Lok" Type="Int16" />
+    <Property Name="Subtime" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="MainInfo">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Micon" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Mintroduction" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Mcreatetime" Type="DateTime" Precision="3" />
+    <Property Name="MbelongTo" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Mcooperation" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Subtime" Type="DateTime" Precision="3" />
+    <Property Name="Delflag" Type="Int16" />
+    <Property Name="CID" Type="Int32" />
+    <NavigationProperty Name="Clubs" Relationship="Self.FK__MainInfo__CID__3D5E1FD2" FromRole="MainInfo" ToRole="Clubs" />
+  </EntityType>
+  <EntityType Name="News">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Ntitle" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Ncontent" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Ntime" Type="DateTime" Precision="3" />
+    <Property Name="Nimage" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Subtime" Type="DateTime" Precision="3" />
+    <Property Name="Delflag" Type="Int16" />
+    <Property Name="CID" Type="Int32" />
+    <NavigationProperty Name="Clubs" Relationship="Self.FK__News__CID__48CFD27E" FromRole="News" ToRole="Clubs" />
+  </EntityType>
+  <EntityType Name="Notice">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Ncontent" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Subtime" Type="DateTime" Precision="3" />
+    <Property Name="Delflag" Type="Int16" />
+    <Property Name="CID" Type="Int32" />
+    <NavigationProperty Name="Clubs" Relationship="Self.FK__Notice__CID__4BAC3F29" FromRole="Notice" ToRole="Clubs" />
+  </EntityType>
+  <EntityType Name="RegisteClub">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Rname" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Rok" Type="Int16" />
+    <Property Name="Subtime" Type="DateTime" Precision="3" />
+  </EntityType>
+  <Association Name="FK__Activities__CID__45F365D3">
+    <End Role="Clubs" Type="Self.Clubs" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Activities" Type="Self.Activities" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Clubs">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Activities">
+        <PropertyRef Name="CID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__BackManager__CID__5165187F">
+    <End Role="Clubs" Type="Self.Clubs" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="BackManager" Type="Self.BackManager" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Clubs">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="BackManager">
+        <PropertyRef Name="CID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__ClubLeader__CID__4E88ABD4">
+    <End Role="Clubs" Type="Self.Clubs" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="ClubLeader" Type="Self.ClubLeader" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Clubs">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="ClubLeader">
+        <PropertyRef Name="CID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__MainInfo__CID__3D5E1FD2">
+    <End Role="Clubs" Type="Self.Clubs" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="MainInfo" Type="Self.MainInfo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Clubs">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="MainInfo">
+        <PropertyRef Name="CID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__News__CID__48CFD27E">
+    <End Role="Clubs" Type="Self.Clubs" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="News" Type="Self.News" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Clubs">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="News">
+        <PropertyRef Name="CID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Notice__CID__4BAC3F29">
+    <End Role="Clubs" Type="Self.Clubs" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Notice" Type="Self.Notice" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Clubs">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Notice">
+        <PropertyRef Name="CID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="CBEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Activities" EntityType="Self.Activities" />
+    <EntitySet Name="BackManager" EntityType="Self.BackManager" />
+    <EntitySet Name="ClubLeader" EntityType="Self.ClubLeader" />
+    <EntitySet Name="Clubs" EntityType="Self.Clubs" />
+    <EntitySet Name="LearnMore" EntityType="Self.LearnMore" />
+    <EntitySet Name="MainInfo" EntityType="Self.MainInfo" />
+    <EntitySet Name="News" EntityType="Self.News" />
+    <EntitySet Name="Notice" EntityType="Self.Notice" />
+    <EntitySet Name="RegisteClub" EntityType="Self.RegisteClub" />
+    <AssociationSet Name="FK__Activities__CID__45F365D3" Association="Self.FK__Activities__CID__45F365D3">
+      <End Role="Clubs" EntitySet="Clubs" />
+      <End Role="Activities" EntitySet="Activities" />
+    </AssociationSet>
+    <AssociationSet Name="FK__BackManager__CID__5165187F" Association="Self.FK__BackManager__CID__5165187F">
+      <End Role="Clubs" EntitySet="Clubs" />
+      <End Role="BackManager" EntitySet="BackManager" />
+    </AssociationSet>
+    <AssociationSet Name="FK__ClubLeader__CID__4E88ABD4" Association="Self.FK__ClubLeader__CID__4E88ABD4">
+      <End Role="Clubs" EntitySet="Clubs" />
+      <End Role="ClubLeader" EntitySet="ClubLeader" />
+    </AssociationSet>
+    <AssociationSet Name="FK__MainInfo__CID__3D5E1FD2" Association="Self.FK__MainInfo__CID__3D5E1FD2">
+      <End Role="Clubs" EntitySet="Clubs" />
+      <End Role="MainInfo" EntitySet="MainInfo" />
+    </AssociationSet>
+    <AssociationSet Name="FK__News__CID__48CFD27E" Association="Self.FK__News__CID__48CFD27E">
+      <End Role="Clubs" EntitySet="Clubs" />
+      <End Role="News" EntitySet="News" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Notice__CID__4BAC3F29" Association="Self.FK__Notice__CID__4BAC3F29">
+      <End Role="Clubs" EntitySet="Clubs" />
+      <End Role="Notice" EntitySet="Notice" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

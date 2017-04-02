@@ -1,0 +1,10 @@
+C:\Users\joejq\Desktop\DotNET\CampusClubService\IDAL\bin\Release\IDAL.dll
+C:\Users\joejq\Desktop\DotNET\CampusClubService\IDAL\bin\Release\IDAL.pdb
+C:\Users\joejq\Desktop\DotNET\CampusClubService\IDAL\bin\Release\Model.dll
+C:\Users\joejq\Desktop\DotNET\CampusClubService\IDAL\bin\Release\EntityFramework.dll
+C:\Users\joejq\Desktop\DotNET\CampusClubService\IDAL\bin\Release\Model.pdb
+C:\Users\joejq\Desktop\DotNET\CampusClubService\IDAL\bin\Release\EntityFramework.xml
+C:\Users\joejq\Desktop\DotNET\CampusClubService\IDAL\bin\Release\zh-Hans\EntityFramework.resources.dll
+C:\Users\joejq\Desktop\DotNET\CampusClubService\IDAL\obj\Release\IDAL.csprojResolveAssemblyReference.cache
+C:\Users\joejq\Desktop\DotNET\CampusClubService\IDAL\obj\Release\IDAL.dll
+C:\Users\joejq\Desktop\DotNET\CampusClubService\IDAL\obj\Release\IDAL.pdb

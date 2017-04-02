@@ -1,0 +1,174 @@
+﻿
+@{
+    ViewBag.Title = "注册协会";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section head{
+    <link href="~/Content/css/后台.css" rel="stylesheet" />
+<script src="~/Content/js/utility.js"></script>
+    <script>
+        $(function () {
+            var contact_error = document.getElementById("contact_error");
+            var psd_error = document.getElementById("psd_error");
+            var sure_error = document.getElementById("sure_error");
+            var exist_error = document.getElementById("exist_val");
+            var existVal = false;
+            var contactExistVal = false;
+        });
+        function register() {
+            if(!existVal) {
+                alert("协会名称验证无法通过, 是否未填写或您所注册的协会已经存在");
+                return false;
+            }
+            if (!contactExistVal) {
+                alert("手机号码验证无法通过, 是否未填写或者此手机号码已经被注册,请更换手机号码");
+                return false;
+            }
+        if(!validateNum($("#contact").val())) {
+            contact_error.style.display = "block";
+            return false;
+        }
+        if(isNullorEmpty($("#password").val())) {
+            psd_error.style.display = "block";
+            return false;
+        }
+        if($("#password").val() != $("#re_password").val()) {
+            sure_error.style.display = "block";
+            return false;
+        }
+            //按钮文字提示
+        $("#btnRegister").val("提交注册……");
+        //confirm
+        if(!confirm("请确认您注册的协会名称，一旦确定无法修改！")) return false;
+        var formData = new FormData();
+        formData.append("clubname", $("#clubname").val());
+        formData.append("contact", $("#contact").val());
+        formData.append("email", $("#email").val());
+        formData.append("pass", $("#password").val());
+        //start ajax
+        $.ajax({
+            url: '@Url.Action("RegisterSubmit")',
+            type: "POST",
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function (data) {
+                if (data == "Ok") {
+                    $("#btnRegister").val("注册");
+                    alert("提交成功！");
+                    location.href="/Register/Main/EditDetail";
+                } else {
+                    $("#btnRegister").val("注册");
+                    alert("提交失败，请稍后再试！");
+                }
+            },
+            error: function () {
+                $("#btnRegister").val("注册");
+                alert("提交失败，稍后再试");
+            }
+        });
+    }
+    function psd_focus() {
+        psd_error.style.display = "none";
+    }
+    function checkpsd_focus() {
+        sure_error.style.display = "none";
+    }
+    function contact_focus() {
+        contact_error.innerHTML = "联系方式格式错误";
+        contact_error.style.backgroundColor = "red";
+        contact_error.style.display = "none";
+    }
+    function nameBlur() {
+        exist_val.style.display = "none";
+        if (isNullorEmpty($("#clubname").val())) {
+            alert("协会名称不能为空!!");
+            return false;
+        }
+        $.get("/Register/Main/IsExist?clubname=" + $("#clubname").val(), function (data) {
+                if(data != "Ok") {
+                    exist_val.innerHTML = "此协会已经存在";
+                    exist_val.style.backgroundColor = "red";
+                    exist_val.style.display = "block";
+                    existVal = false;
+                }
+                else {
+                    exist_val.innerHTML = "验证通过";
+                    exist_val.style.backgroundColor = "lightgreen";
+                    exist_val.style.display = "block";
+                    existVal = true;
+                }
+                //id = data;
+            });
+    }
+    function contactBlur() {
+        contact_error.style.display = "none";
+        if (isNullorEmpty($("#contact").val())) {
+            alert("手机号码不能为空!!");
+            return false;
+        }
+        $.get("/Register/Main/ContactExist?contact=" + $("#contact").val(), function (data) {
+            if (data != "Ok") {
+                contact_error.innerHTML = "此手机号已经被注册过";
+                contact_error.style.backgroundColor = "red";
+                contact_error.style.display = "block";
+                contactExistVal = false;
+            }
+            else {
+                contact_error.innerHTML = "验证通过";
+                contact_error.style.backgroundColor = "lightgreen";
+                contact_error.style.display = "block";
+                contactExistVal = true;
+            }
+        });
+    }
+    </script>
+}
+<div class="register_container">
+    <table class="register_table">
+        <tr>
+            <td colspan="2" class="register_table_title">
+                注&nbsp;&nbsp;&nbsp;&nbsp;册
+            </td>
+        </tr>
+        <tr>
+            <td class="register_table_first_td">协会名：</td>
+            <td class="register_table_second_td">
+                <input type="text" id="clubname" onblur="nameBlur()" />
+                <div style="background-color: red;color: black;display: none" id="exist_val">协会已经存在</div>
+            </td>
+        </tr>
+        <tr>
+            <td class="register_table_first_td">手机号：</td>
+            <td class="register_table_second_td">
+                <input type="text" id="contact" onfocus="contact_focus()" onblur="contactBlur()"/>
+                <div style="background-color: red;color: black;display: none" id="contact_error">联系方式格式错误</div>
+            </td>
+        </tr>
+        <tr>
+            <td class="register_table_first_td">邮箱：</td>
+            <td class="register_table_second_td">
+                <input type="text" id="email" />
+            </td>
+        </tr>
+        <tr>
+            <td class="register_table_first_td">密码：</td>
+            <td class="register_table_second_td">
+                <input type="password" id="password" onfocus="psd_focus()" />
+                <div style="background-color: red;color: black;display: none" id="psd_error">密码为空</div>
+            </td>
+        </tr>
+        <tr>
+            <td class="register_table_first_td">确认密码：</td>
+            <td class="register_table_second_td">
+                <input type="password" id="re_password" onfocus="checkpsd_focus()" />
+                <div style="background-color: red;color: black;display: none" id="sure_error">密码不一致</div>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" style="text-align: center">
+                <input id="btnRegister" type="button" value="注册" class="register_btn" onclick="register()" />
+            </td>
+        </tr>
+    </table>
+</div>

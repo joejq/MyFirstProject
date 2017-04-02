@@ -1,0 +1,15 @@
+﻿using Model;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace IBLL
+{
+    public interface IClubLeaderService : IBaseService<ClubLeader>
+    {
+        //int GetIdByContact(string contact);
+        ClubLeader GetLeaderByCid(int cid);
+    }
+}

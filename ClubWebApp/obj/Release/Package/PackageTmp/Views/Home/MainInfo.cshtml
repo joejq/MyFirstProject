@@ -1,0 +1,53 @@
+﻿
+@{
+    ViewBag.Title = ViewData["Mname"].ToString()+"简介";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section head{
+<link href="~/Content/css/introduction.css" rel="stylesheet" />
+    }
+<div class="title">
+    <table style="margin: auto;">
+        <tr>
+            <td>
+                <img src="@ViewData["Micon"]" alt="" class="title_img" />&nbsp;&nbsp;
+            </td>
+            <td>
+                <label style="font-size: 35px;">@ViewData["Mname"]</label>
+            </td>
+        </tr>
+    </table>
+</div>
+<div class="decoration"></div>
+<div class="content" style="width:800px;margin: auto;margin-top: 20px;">
+    <div style="font-size: 20px;">
+        <p>
+            <b>创办时间：</b>
+            <span>
+                @ViewData["Mcreatetime"]
+            </span>
+        </p>
+        <p>
+            <b>所属院系：</b>
+
+            <span>
+                @ViewData["MbelongTo"]
+            </span>
+        </p>
+        <p>
+            <b>合作商：</b>
+
+            <span>
+                @ViewData["Mcooperation"]
+            </span>
+        </p>
+        <p><b>协会具体介绍:</b></p>
+    </div>
+    <div>
+        @{
+            string str = ViewData["Mintroduction"].ToString();
+        }@Html.Raw(str)
+    </div>
+
+</div>
+

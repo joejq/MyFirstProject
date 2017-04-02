@@ -1,0 +1,146 @@
+﻿
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>添加动态</title>
+    <link href="~/Content/css/后台2.css" rel="stylesheet" />
+    <link href="~/Areas/Admin/umeditor1_2_2-utf8-net/themes/default/css/umeditor.min.css" rel="stylesheet" />
+    <script src="~/Areas/Admin/umeditor1_2_2-utf8-net/third-party/jquery.min.js"></script>
+    <script src="~/Areas/Admin/umeditor1_2_2-utf8-net/umeditor.config.js"></script>
+    <script src="~/Areas/Admin/umeditor1_2_2-utf8-net/umeditor.min.js"></script>
+<script>
+    $(function () {
+        if(window.File && window.FileList && window.Blob && window.FileReader) {
+            document.getElementById("imgfile").addEventListener('change', fileSelect, false);
+        } else {
+            alert("您的浏览器不支持File Api");
+        }
+        $("#upload").click(function () {
+            //alert("start upload");
+            var formData = new FormData();
+            formData.append("imgfile", document.getElementById("imgfile").files[0]);
+            $.ajax({
+                url: "/Admin/Main/FileUploadAjax?type=news",
+                type: "POST",
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function (data) {
+                    $("#url").val(data);
+                    alert("上传成功！");
+                },
+                error: function () {
+                    alert("上传失败！");
+                }
+            });
+        });
+        $("#btnAdd").click(function () {
+            //按钮提示
+            $(this).val("添加……");
+            var news = new FormData();
+            var content = um.getContent();
+            news.append("title", $("#title").val());
+            news.append("url", $("#url").val());
+            news.append("date", $("#date").val());
+            news.append("content", content);
+            //ajax 添加动态
+            $.ajax({
+                url: '@Url.Action("AddNewsSubmit")',
+                type: "POST",
+                data: news,
+                contentType: false,
+                processData: false,
+                success: function (data) {
+                    if (data == "Ok") {
+                        $("#btnAdd").val("添加");
+                        alert("添加成功！");
+                        location.reload();
+                    } else {
+                        $("#btnAdd").val("添加");
+                        alert("添加失败，请重试");
+                    }
+                }, 
+                error: function () {
+                    $("#btnAdd").val("添加");
+                    alert("添加失败，请重试");
+                }
+            });
+        });
+    });
+    function fileSelect(e) {
+        e = e || window.event;
+        var files = e.target.files;
+        var file = files[0];
+        var reader = new FileReader();
+        if(!(/image\/\w+/.test(file.type))) {
+            alert("这里需要图片!");
+            return false;
+        }
+        reader.readAsDataURL(file);
+        reader.onload = function (e) {
+            document.getElementById("change_logo").src = this.result;
+        }
+    }
+
+    function change() {
+        if($("#title").val() == null || $("#title").val() == "") {
+            alert("新闻标题不能为空！");
+            return;
+        }
+    }
+</script>
+</head>
+<body>
+    <div class="change_container">
+            <table class="change_table">
+                <tr>
+                    <td class="change_table_title">
+                        <p style="font-family: 'Microsoft YaHei';font-size:20px;">添&nbsp;加&nbsp;动&nbsp;态</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="change_table_normal">
+                        标题：<input type="text" id="title" name="title" onblur="change()" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="change_table_normal">
+                        作者：<input type="text" value="管理员" /> &nbsp;&nbsp;
+                        时间：<input type="date" id="date" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="change_table_normal">
+                        标志性缩略图：<br /><img src="~/Content/images/default/100_80.png" id="change_logo" /><br />
+                        <input type="file" id="imgfile" name="imgfile" />&nbsp;<input type="button" class="upload_btn" id="upload" value="上传图片" />
+                        <input type="hidden" id="url" name="url" />
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td>
+                        <!--style给定宽度可以影响编辑器的最终宽度-->
+                        <script type="text/plain" id="myEditor" style="width:100%;height:240px;">
+                            <p>这里我可以写一些输入提示</p>
+                        </script>
+                        <script type="text/javascript">
+                        //实例化编辑器
+                        var um = UM.getEditor('myEditor');
+                        </script>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="change_table_normal">
+                        <input type="button" id="btnAdd" value="添加" class="change_btn" />
+                    </td>
+                </tr>
+            </table>
+        
+    </div>
+    <div style="text-align:center;width:100%;float:left;border-top:solid 1px orangered;margin-top:10px;"><p>@DateTime.Now.Year - 版权归江苏科技大学（张家港校区）计算机协会所有</p></div>
+</body>
+</html>

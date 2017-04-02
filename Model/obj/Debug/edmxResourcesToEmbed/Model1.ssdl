@@ -1,0 +1,226 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="CalligenceBotModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Activities">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Atitle" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="Acontent" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Atime" Type="datetime" />
+    <Property Name="Aimage" Type="nvarchar" MaxLength="100" />
+    <Property Name="Subtime" Type="datetime" />
+    <Property Name="Delflag" Type="smallint" />
+    <Property Name="CID" Type="int" />
+  </EntityType>
+  <EntityType Name="BackManager">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Busername" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Bpass" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Bcontact" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Subtime" Type="datetime" />
+    <Property Name="Delflag" Type="smallint" />
+    <Property Name="CID" Type="int" />
+  </EntityType>
+  <EntityType Name="ClubLeader">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Lname" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="Lmajor" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Lcontact" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Lregiste" Type="datetime" />
+    <Property Name="Lsex" Type="smallint" />
+    <Property Name="Limage" Type="nvarchar(max)" />
+    <Property Name="Subtime" Type="datetime" />
+    <Property Name="Delflag" Type="smallint" />
+    <Property Name="CID" Type="int" />
+  </EntityType>
+  <EntityType Name="Clubs">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Cname" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="Subtime" Type="datetime" />
+    <Property Name="Delflag" Type="smallint" />
+  </EntityType>
+  <EntityType Name="LearnMore">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Lcontent" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Lok" Type="smallint" />
+    <Property Name="Subtime" Type="datetime" />
+  </EntityType>
+  <EntityType Name="MainInfo">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Micon" Type="nvarchar" MaxLength="100" />
+    <Property Name="Mintroduction" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Mcreatetime" Type="datetime" />
+    <Property Name="MbelongTo" Type="nvarchar" MaxLength="100" />
+    <Property Name="Mcooperation" Type="nvarchar(max)" />
+    <Property Name="Subtime" Type="datetime" />
+    <Property Name="Delflag" Type="smallint" />
+    <Property Name="CID" Type="int" />
+  </EntityType>
+  <EntityType Name="News">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Ntitle" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="Ncontent" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Ntime" Type="datetime" />
+    <Property Name="Nimage" Type="nvarchar" MaxLength="100" />
+    <Property Name="Subtime" Type="datetime" />
+    <Property Name="Delflag" Type="smallint" />
+    <Property Name="CID" Type="int" />
+  </EntityType>
+  <EntityType Name="Notice">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Ncontent" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Subtime" Type="datetime" />
+    <Property Name="Delflag" Type="smallint" />
+    <Property Name="CID" Type="int" />
+  </EntityType>
+  <EntityType Name="RegisteClub">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Rname" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="Rok" Type="smallint" />
+    <Property Name="Subtime" Type="datetime" />
+  </EntityType>
+  <Association Name="FK__Activities__CID__45F365D3">
+    <End Role="Clubs" Type="Self.Clubs" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Activities" Type="Self.Activities" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Clubs">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Activities">
+        <PropertyRef Name="CID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__BackManager__CID__5165187F">
+    <End Role="Clubs" Type="Self.Clubs" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="BackManager" Type="Self.BackManager" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Clubs">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="BackManager">
+        <PropertyRef Name="CID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__ClubLeader__CID__4E88ABD4">
+    <End Role="Clubs" Type="Self.Clubs" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="ClubLeader" Type="Self.ClubLeader" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Clubs">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="ClubLeader">
+        <PropertyRef Name="CID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__MainInfo__CID__3D5E1FD2">
+    <End Role="Clubs" Type="Self.Clubs" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="MainInfo" Type="Self.MainInfo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Clubs">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="MainInfo">
+        <PropertyRef Name="CID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__News__CID__48CFD27E">
+    <End Role="Clubs" Type="Self.Clubs" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="News" Type="Self.News" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Clubs">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="News">
+        <PropertyRef Name="CID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Notice__CID__4BAC3F29">
+    <End Role="Clubs" Type="Self.Clubs" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Notice" Type="Self.Notice" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Clubs">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Notice">
+        <PropertyRef Name="CID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="CalligenceBotModelStoreContainer">
+    <EntitySet Name="Activities" EntityType="Self.Activities" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="BackManager" EntityType="Self.BackManager" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ClubLeader" EntityType="Self.ClubLeader" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Clubs" EntityType="Self.Clubs" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="LearnMore" EntityType="Self.LearnMore" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MainInfo" EntityType="Self.MainInfo" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="News" EntityType="Self.News" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Notice" EntityType="Self.Notice" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="RegisteClub" EntityType="Self.RegisteClub" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__Activities__CID__45F365D3" Association="Self.FK__Activities__CID__45F365D3">
+      <End Role="Clubs" EntitySet="Clubs" />
+      <End Role="Activities" EntitySet="Activities" />
+    </AssociationSet>
+    <AssociationSet Name="FK__BackManager__CID__5165187F" Association="Self.FK__BackManager__CID__5165187F">
+      <End Role="Clubs" EntitySet="Clubs" />
+      <End Role="BackManager" EntitySet="BackManager" />
+    </AssociationSet>
+    <AssociationSet Name="FK__ClubLeader__CID__4E88ABD4" Association="Self.FK__ClubLeader__CID__4E88ABD4">
+      <End Role="Clubs" EntitySet="Clubs" />
+      <End Role="ClubLeader" EntitySet="ClubLeader" />
+    </AssociationSet>
+    <AssociationSet Name="FK__MainInfo__CID__3D5E1FD2" Association="Self.FK__MainInfo__CID__3D5E1FD2">
+      <End Role="Clubs" EntitySet="Clubs" />
+      <End Role="MainInfo" EntitySet="MainInfo" />
+    </AssociationSet>
+    <AssociationSet Name="FK__News__CID__48CFD27E" Association="Self.FK__News__CID__48CFD27E">
+      <End Role="Clubs" EntitySet="Clubs" />
+      <End Role="News" EntitySet="News" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Notice__CID__4BAC3F29" Association="Self.FK__Notice__CID__4BAC3F29">
+      <End Role="Clubs" EntitySet="Clubs" />
+      <End Role="Notice" EntitySet="Notice" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

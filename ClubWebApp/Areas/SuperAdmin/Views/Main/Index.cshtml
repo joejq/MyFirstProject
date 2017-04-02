@@ -1,0 +1,184 @@
+﻿
+@{
+    ViewBag.Title = "超级管理";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section head{
+<link href="~/Content/css/super.css" rel="stylesheet" />
+<link href="~/Content/css/PageBarStyle.css" rel="stylesheet" />
+    <script>
+        $(function () {
+            loadClubs(1);
+            var first = document.getElementById("first");
+            var second = document.getElementById("second");
+            var tag = document.getElementById("tag");
+            var type = "";
+
+            first.addEventListener("click", change, false);
+            second.addEventListener("click", change, false);
+
+            $("#btnAdd").click(function () {
+                window.open('/Register/Main/Index');
+            });
+        });
+        function change() {
+            if (this.id == "first") {
+                type = "club";
+                $("#btnAdd").css({ "display": "block" });  //增加按钮可见
+                second.style.backgroundColor = "#a50b0b";
+                first.style.backgroundColor = "#FF0005";
+                loadClubs(1);
+                tag.innerHTML = "已有协会";
+            } else if (this.id == "second") {
+                type = "luis";
+                $("#btnAdd").css({ "display": "none" }); //增加按钮不可见
+                second.style.backgroundColor = "#FF0005";
+                first.style.backgroundColor = "#a50b0b";
+                loadLuis(1);
+                tag.innerHTML = "训练Luis";
+            } 
+            window.event.stopPropagation();
+        }
+        /*Delete*/
+        //动态删除页面结点
+        function deleteNode(element) {
+            var obj = element.parentNode.parentNode;
+            var tagName = obj.nodeName;
+            if(tagName == "TR" || tagName == "tr") {
+                obj.parentNode.removeChild(obj);
+            }
+        }
+            
+        function delelteClub(id, ele) {
+            $.ajax({
+                url: '@Url.Action("DeleteClub")',
+                type: "GET",
+                data: "&id=" + id,
+                success: function (data) {
+                    if (data == "Ok") {
+                        alert("删除成功！");
+                        //动态删除页面结点
+                        deleteNode(ele);
+                    } else {
+                        alert("删除失败，请重试");
+                    }
+                }
+            });
+        }
+        function confirm(id, ele) {
+            $.get("/SuperAdmin/Main/Practise?id=" + id, function (data) {
+                if (data == "Ok") {
+                    alert("已经训练Luis");
+                    deleteNode(ele);
+                }
+            })
+        }
+        
+        function loadClubs(pageIndex) { 
+            $.ajax({
+                type: "GET",
+                url: "/SuperAdmin/Main/Clubs?pageIndex=" + pageIndex,
+                dataType: "json",
+                success: function (data) {
+                    $('#content').empty();
+                    var html = '';
+                    var json = eval("(" + data + ")");
+                    var clubs = json.clubs;
+                    if (clubs == "") {
+                        html += '<tr><td>内容为空</td></tr>';
+                        $("#content").append(html);
+                        return;
+                    }
+                    //加载内容
+                    html += '<tr><td class="super_title"><b>协会名称</b></td><td class="super_title"><b>会长姓名</b></td><td class="super_title"><b>会长联系方式</b></td><td class="super_title"><b>操作</b></td></tr>';
+                    for (var i = 0; i < clubs.length; i++) {
+                        var leader = "NULL";
+                        var contact = "NULL";
+                        if (clubs[i].Leadername) leader = clubs[i].Leadername;
+                        if (clubs[i].Contact) contact = clubs[i].Contact;
+                        html += '<tr><td>' + clubs[i].Clubname + '</td><td>' + leader + '</td><td>' + contact + '</td><td><button onclick="delelteClub(' + clubs[i].ID + ', this)">删除</button></td></tr>';
+                    }
+                    //页码条
+                    if (json.pageBar != "") html += '<tr><td align="center" colspan="7"><div id="showPageBar" class="page_nav">' + json.pageBar + '</div></td></tr>';
+                    $('#content').append(html);
+                }
+            });
+        }
+        function loadLuis(pageIndex) {
+            $.ajax({
+                type: "GET",
+                url: "/SuperAdmin/Main/Luis?pageIndex=" + pageIndex,
+                dataType: "json",
+                success: function (data) {
+                    $('#content').empty();
+                    var html = '';
+                    var json = eval("(" + data + ")");
+                    var luis = json.luis;
+                    
+                    if (luis == "") {
+                        html += '<tr><td>内容为空</td></tr>';
+                        $("#content").append(html);
+                        return;
+                    }
+                    //alert("get luis is not null");
+                    //加载内容
+                    for (var i = 0; i < luis.length; i++) {
+                        var lid = luis[i].ID;
+                        var content = luis[i].Lcontent;
+                        var date = getMyDate(luis[i].Subtime);
+                        html += '<tr><td><textarea rows="2" style="width:560px;font-size:15px;">' + content + '</textarea></td><td style="text-align:center"><td>' + date + '</td><td><input type="button" value="完成训练" onclick="confirm(' + lid + ', this)" /></td></tr>';
+                    }
+                    //页码条
+                    if (json.pageBar != "") html += '<tr><td align="center" colspan="7"><div id="showPageBar" class="page_nav">' + json.pageBar + '</div></td></tr>';
+                    $('#content').append(html);
+                }
+            });
+        }
+        function isNullorEmpty(value) {
+            if (value == null || value == "") return true;
+            return false;
+        }
+    </script>
+    }
+
+<div class="title">
+    <table style="margin: auto;">
+        <tr>
+            <td>
+                <img src="~/Content/images/default/super.png" alt="" class="title_img" />&nbsp;&nbsp;
+            </td>
+            <td>
+                <label style="font-size: 35px;">超级管理员</label>
+            </td>
+        </tr>
+    </table>
+</div>
+<div class="decoration"></div>
+<div class="more_content">
+    <div class="left_nav">
+        <div class="nav" style="background-color:#FF0005" id="first">已有协会</div>
+        <div class="nav" id="second">训练Luis</div>
+        @*<div class="nav" id="third">语音列表</div>*@
+    </div>
+    <div class="right_nav">
+        <div class="more_logo" id="tag">已有协会</div>
+        <input type="button" id="btnAdd" value="增加" class="add_information_btn" />
+        <table id="content" class="super_table">
+            <tr>
+                <td class="super_title">协会名</td>
+                <td class="super_title">会长名</td>
+                <td class="super_title">会长联系方式</td>
+            </tr>
+            <tr>
+                <td>XXX协会</td>
+                <td>XXXX</td>
+                <td>00000000000</td>
+            </tr>
+        </table>
+    </div>
+</div>
+<script>
+    var ones=document.getElementsByClassName("content_one");
+    var ones_time=document.getElementsByClassName("content_table_time");
+
+</script>

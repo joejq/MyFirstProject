@@ -1,0 +1,204 @@
+﻿.change_container{
+    width: 800px;
+    margin: auto;
+    margin-top: 50px;
+    box-shadow: 0px 0px 1px orangered;
+}
+.change_table{
+    width: 100%;
+}
+.change_table_title{
+    width: 100%;
+    text-align: center;
+    background-color: #c70e0e;
+    height: 40px;
+    color: #ffffff;
+}
+.change_table_normal{
+    width: 100%;
+    text-align: center;
+    border-bottom: solid 2px orangered;
+    height: 40px;
+    line-height: 40px;
+}
+#change_logo{
+    width: 100px;
+    height: 80px;
+    border: solid 1px grey;
+}
+.change_btn{
+    width: 100px;
+    height: 30px;
+    background-color: #c70e0e;
+    border: none;
+    border-radius: 5px;
+    color: #ffffff;
+}
+.change_btn:hover{
+    background-color: #ff5d00;
+    cursor: pointer;
+}
+.operation_btn{
+    width: 60px;
+    height: 30px;
+    background-color: #ffffff;
+    border:solid 1px #c70e0e;
+    border-radius: 5px;
+    color: black;
+}
+.operation_btn:hover{
+    background-color: #ff5d00;
+    cursor: pointer;
+}
+
+.upload_btn{
+    border-radius: 3px;
+    border: none;
+    height: 26px;
+    background-color: #c10f0e;
+    color: #ffffff;
+    font-size: 15px;
+}
+.upload_btn:hover{
+    background-color: #ff8a00;
+    cursor: pointer;
+}
+
+
+.title{
+    width: 100%;
+    color: #000000;
+    text-align: center;
+    font-size: 35px;
+}
+.decoration{
+    width: 100%;
+    height: 30px;
+    background-color: #c70e0e;
+}
+.decoration_table{
+    width: 100%;
+    text-align: center;
+}
+.decoration_table tr td a{
+    text-decoration: none;
+    color: #ffffff;
+}
+.decoration_table tr td a:hover{
+    color: #000000;
+}
+.title_img{
+    width: 100px;
+    height: 100px;
+}
+
+.more_content{
+    width: 1200px;
+    margin: auto;
+    margin-top: 20px;
+    box-shadow:0px 0px 1px #ff8600;
+    
+}
+.left_nav{
+    width: 250px;
+    height:600px;
+    text-align: center;
+    padding-top: 200px;
+    float: left;
+    color: #ffffff;
+    border-right: solid 3px #ffccb2;
+}
+.nav{
+    margin: auto;
+    width: 130px;
+    height: 70px;
+    background-color: #c10f0e;
+    text-align: center;
+    line-height: 70px;
+    border-bottom: solid 1px orangered;
+}
+.nav:hover{
+    cursor: pointer;
+}
+.right_nav{
+    width: 946px;
+    float: right;
+  
+}
+.more_logo{
+    background-color: #c10f0e;
+    width: 100px;
+    height: 30px;
+    font-size: 20px;
+    text-align: center;
+    border-radius: 30px;
+    color: #ffffff;
+}
+.content_table{
+    width: 820px;
+    margin: auto;
+    margin-top: 15px;
+}
+.content_table tr td a{
+    text-decoration: none;
+    color: black;
+}
+.content_table tr td a:hover{
+    color: blue;
+}
+.content_table tr{
+    width:100%;
+    height:40px;
+}
+.content_table tr td{
+    border-bottom: solid 2px orangered;
+}
+.content_table_content{
+    width: 68%;
+}
+
+.content_table_time{
+    width: 15%;
+    text-align: center;
+}
+.add_information_btn{
+    background-color: #e1e1e1;
+    color: red;
+    border: none;
+    float: right;
+    width: 100px;
+    height: 30px;
+    border-radius: 3px;
+    font-size: 18px;
+}
+.add_information_btn:hover{
+    background-color: grey;
+    cursor: pointer;
+}
+/* 定义模态对话框外面的覆盖层样式 */
+#modal-overlay{
+    visibility:hidden;
+    position:absolute;/* 使用绝对定位或固定定位  */
+    left: 0px;
+    top: 0px;
+    width:100%;
+    height:1100px;
+    text-align:center;
+    z-index:1000;
+    background-color: #333;
+    opacity: 1;/* 背景半透明 */
+}
+/* 模态框样式 */
+.modal-data{
+    width: 400px;
+    margin: 100px auto;
+    background-color: white;
+    border:1px solid #000;
+    padding:15px;
+    text-align:center;
+}
+.display_img{
+    width:270px;
+    height:250px;
+    border-bottom:solid 1px grey;
+}

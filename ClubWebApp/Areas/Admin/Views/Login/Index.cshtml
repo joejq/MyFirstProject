@@ -1,0 +1,90 @@
+﻿
+@{
+    ViewBag.Title = "管理员登录";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section head{
+    <link href="~/Content/css/login.css" rel="stylesheet" />
+}
+<div class="login_contanier">
+    <table class="login_table">
+        <tr class="login_table_title"><td><pre style="font-family:'Microsoft YaHei';font-size:20px;">登   录</pre></td></tr>
+        <tr><td class="login_table_name"><pre>手机号：  <input type="text" id="contact" onfocus="name_focus()" onblur="exist()" />  <div style="background-color: red;color: black;display: none" id="name_error">管理员不存在</div></pre></td></tr>
+        <tr>
+            <td class="login_table_pass">
+                <pre>密码：     <input type="password" id="pass" onfocus="pass_focus()" />&nbsp;&nbsp;<div style="background-color: red;color: black;display: none" id="pass_error">密码错误</div></pre>
+            </td>
+        </tr>
+        <tr>
+            <td class="login_table_login">
+                <input id="btnLogin" type="button" value="登录" class="login_btn" onclick="login()" /><br />
+                <a href="javascript:alert('为了账户安全性，请与网站运营人员联系 QQ:875444421 TEL:18362202775');" style="float: right;">忘记密码</a>
+            </td>
+        </tr>
+    </table>        
+</div>
+<br />
+<br />
+<br />
+<br />
+<script>
+        var nameError=document.getElementById("name_error");
+        var passError = document.getElementById("pass_error");
+    
+        var id;  //club's id
+        function exist() {
+            /*get club's id by ajax*/
+            $.get("/Admin/Login/GetClubIdByContact?contact=" + $("#contact").val(), function (data) {
+                data = parseInt(data);
+                if(data <= 0) {
+                    nameError.style.display = "block";
+                }
+                else {
+                    nameError.innerHTML = "管理员验证通过";
+                    nameError.style.backgroundColor = "lightgreen";
+                    nameError.style.display = "block";
+                }
+                id = data;
+            });
+        }
+        function login() {
+            $("#btnLogin").val("登录……");
+            if(!id) {
+                alert("此管理员不存在");
+                $("#btnLogin").val("登录");
+                return false;
+            }
+            $.get("/Admin/Login/Validate?contact=" + $("#contact").val() + "&pass=" + $("#pass").val(), function (data) {
+                if(data == "Ok") {
+                    passError.innerHTML = "验证通过";
+                    passError.style.backgroundColor = "lightgreen";
+                    passError.style.display = "block";
+                    window.location.href = "/Admin/Main/Index";
+                } else if (data != "Fail") {
+                    passError.innerHTML = "验证通过";
+                    passError.style.backgroundColor = "lightgreen";
+                    passError.style.display = "block";
+                    window.location.href = "/SuperAdmin/Main/Index";
+                }
+                else {
+                    passError.style.display = "block";
+                    $("#btnLogin").val("登录");
+                    return false;
+                }
+            });
+        }
+        //注册Enter登录事件
+        document.onkeydown = function (e) {
+            var keycode = document.all ? event.keyCode : e.which;
+            if (keycode == 13) {
+                login();
+            }
+        }
+        function name_focus(){
+            nameError.style.display="none";
+        }
+        function pass_focus(){
+            passError.style.display = "none";
+        }
+</script>

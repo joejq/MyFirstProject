@@ -1,0 +1,5 @@
+C:\Users\joejq\Desktop\DotNET\CampusClubService\Common\bin\Debug\Common.dll
+C:\Users\joejq\Desktop\DotNET\CampusClubService\Common\bin\Debug\Common.pdb
+C:\Users\joejq\Desktop\DotNET\CampusClubService\Common\obj\Debug\Common.dll
+C:\Users\joejq\Desktop\DotNET\CampusClubService\Common\obj\Debug\Common.pdb
+C:\Users\joejq\Desktop\DotNET\CampusClubService\Common\obj\Debug\Common.csprojResolveAssemblyReference.cache

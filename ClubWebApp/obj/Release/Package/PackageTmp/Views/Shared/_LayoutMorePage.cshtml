@@ -1,0 +1,30 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link href="~/Content/css/introduction.css" rel="stylesheet" />
+    <link href="~/Content/css/PageBarStyle.css" rel="stylesheet" />
+    <script src="~/Content/js/jquery.js"></script>
+    <script src="~/Content/js/utility.js"></script>
+    <base target="_blank">
+    @RenderSection("head", false)
+</head>
+<body>
+    <div class="title">
+        <table style="margin: auto;">
+            <tr>
+                <td>
+                    <img src="@ViewBag.Icon" alt="" class="title_img" />&nbsp;&nbsp;
+                </td>
+                <td>
+                    <label style="font-size: 35px;">@ViewBag.FirstClubName</label>
+                </td>
+            </tr>
+        </table>
+    </div>
+    @RenderBody()
+    <div style="text-align:center;width:100%;min-width:1000px;float:left;border-top:solid 1px orangered;margin-top:10px;"><p>@DateTime.Now.Year - 版权归江苏科技大学（张家港校区）计算机协会所有</p></div>
+</body>
+</html>
