@@ -15,7 +15,7 @@ namespace CalligenceBot
 {
     //LUIS 
     //AppId 50322056-24f5-4634-ba81-3284ccabfd31 
-    //Sub 86c7fd147e484c3f897a683f505a34e1
+    //Sub f44431ea4c6a4c4a9f4aa9366ef6a77b
 
     [LuisModel("50322056-24f5-4634-ba81-3284ccabfd31", "f44431ea4c6a4c4a9f4aa9366ef6a77b")]
 
